@@ -488,26 +488,24 @@ strong { font-weight: 600; }
 }
 
 /* ============================================================
-   PRINT — all slides visible, one per page
+   PRINT
    ============================================================ */
 @media print {
-  html, body { overflow: visible; height: auto; }
-  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .deck { position: static; width: auto; height: auto; overflow: visible; }
+  html, body { overflow: visible !important; height: auto !important; background: #fff !important; }
+  .deck { overflow: visible !important; height: auto !important; width: 100% !important; position: static !important; }
   .slide {
-    position: static; opacity: 1 !important; transform: none !important;
-    pointer-events: auto; page-break-after: always; page-break-inside: avoid;
-    width: 100%; height: 100vh; overflow: hidden;
+    position: static !important; opacity: 1 !important; transform: none !important;
+    pointer-events: auto !important; page-break-after: always;
+    page-break-inside: avoid; overflow: visible !important;
+    min-height: 100vh; height: auto !important; padding: 48px 56px !important;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
   }
-  .slide.prev { opacity: 1 !important; transform: none !important; }
+  .slide:last-child { page-break-after: auto; }
+  .slide-alt { background: #f8f8f8 !important; }
   .nav-bar { display: none !important; }
-  .cover-decoration { display: none; }
-  .chart-bar[data-height="32"] { height: 32% !important; }
-  .chart-bar[data-height="37"] { height: 37% !important; }
-  .chart-bar[data-height="42"] { height: 42% !important; }
-  .chart-bar[data-height="47"] { height: 47% !important; }
-  .chart-bar[data-height="56"] { height: 56% !important; }
-  .chart-bar[data-height="65"] { height: 65% !important; }
+  .cover-decoration { display: none !important; }
+  .chart-bar { transition: none !important; }
+  a { text-decoration: none; }
 }
 </style>
 </head>
@@ -1380,6 +1378,13 @@ document.addEventListener('touchend', (e) => {
 
 buildDots();
 updateNav();
+
+window.addEventListener('beforeprint', () => {
+  document.querySelectorAll('.chart-bar[data-height]').forEach(bar => {
+    bar.style.height = bar.dataset.height + '%';
+    bar.style.transition = 'none';
+  });
+});
 </script>
 
 </body>
