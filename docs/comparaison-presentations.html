@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABL — Comparaison des présentations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --white: #ffffff;
+  --bg: #fafafa;
+  --bg-alt: #f4f5f7;
+  --text: #1e293b;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --navy: #1a2744;
+  --gold: #b8945f;
+  --gold-pale: #f5edd9;
+  --border: #e2e8f0;
+  --red: #dc2626;
+  --green: #059669;
+  --radius: 10px;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: var(--font-body); color: var(--text);
+  background: var(--white); -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+
+.page { max-width: 1100px; margin: 0 auto; padding: 60px 40px 80px; }
+
+h1 {
+  font-family: var(--font-display); font-size: 36px; font-weight: 800;
+  color: var(--navy); margin-bottom: 8px;
+}
+h1 em { font-style: normal; color: var(--gold); }
+.subtitle { font-size: 16px; color: var(--text-secondary); margin-bottom: 40px; }
+
+h2 {
+  font-family: var(--font-display); font-size: 22px; font-weight: 700;
+  color: var(--navy); margin: 48px 0 16px; padding-bottom: 8px;
+  border-bottom: 2px solid var(--border);
+}
+
+h3 {
+  font-family: var(--font-display); font-size: 16px; font-weight: 700;
+  color: var(--navy); margin: 24px 0 8px;
+}
+
+p { font-size: 14px; color: var(--text-secondary); margin-bottom: 12px; }
+
+/* Comparison table */
+.comp-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 32px; }
+.comp-table th {
+  text-align: left; padding: 12px 14px; font-weight: 700;
+  font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--white); border-bottom: 2px solid var(--border);
+}
+.comp-table th:nth-child(1) { background: var(--text-muted); border-radius: 6px 0 0 0; }
+.comp-table th:nth-child(2) { background: #6b7280; }
+.comp-table th:nth-child(3) { background: var(--navy); }
+.comp-table th:nth-child(4) { background: var(--gold); border-radius: 0 6px 0 0; }
+.comp-table td {
+  padding: 10px 14px; border-bottom: 1px solid var(--border);
+  color: var(--text-secondary); vertical-align: top;
+}
+.comp-table td:first-child { font-weight: 600; color: var(--navy); background: var(--bg); min-width: 160px; }
+.comp-table tr:last-child td { border-bottom: none; }
+.comp-table tr:hover td { background: rgba(26,39,68,0.02); }
+.comp-table tr:hover td:first-child { background: var(--bg-alt); }
+
+.badge {
+  display: inline-block; padding: 2px 8px; border-radius: 100px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+}
+.badge-navy { background: var(--navy); color: var(--white); }
+.badge-gold { background: var(--gold-pale); color: var(--gold); }
+.badge-gray { background: var(--bg-alt); color: var(--text-muted); }
+.badge-green { background: #ecfdf5; color: var(--green); }
+.badge-red { background: #fef2f2; color: var(--red); }
+
+.check { color: var(--green); font-weight: 700; }
+.cross { color: var(--red); font-weight: 700; }
+.partial { color: var(--gold); font-weight: 700; }
+
+/* Slide mapping table */
+.slide-map { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 32px; }
+.slide-map th {
+  text-align: left; padding: 8px 10px; font-weight: 700;
+  font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-muted); border-bottom: 2px solid var(--border);
+  background: var(--bg);
+}
+.slide-map td {
+  padding: 6px 10px; border-bottom: 1px solid var(--border-light, #f1f5f9);
+  color: var(--text-secondary); vertical-align: top;
+}
+.slide-map td:first-child { font-weight: 600; color: var(--navy); text-align: center; width: 40px; }
+.slide-map tr:hover td { background: rgba(26,39,68,0.02); }
+.slide-map .merged { background: var(--gold-pale); color: var(--gold); font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 3px; }
+.slide-map .new-slide { background: #ecfdf5; color: var(--green); font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 3px; }
+
+/* Links */
+.links { display: flex; gap: 16px; margin-top: 40px; flex-wrap: wrap; }
+.link-card {
+  flex: 1; min-width: 200px; padding: 20px; border: 1px solid var(--border);
+  border-radius: var(--radius); text-decoration: none; color: var(--text);
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.link-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.06); border-color: var(--navy); }
+.link-card h4 { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+.link-card p { font-size: 12px; color: var(--text-muted); margin: 0; }
+
+/* Summary cards */
+.summary-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 32px; }
+.summary-card {
+  padding: 24px; border: 1px solid var(--border); border-radius: var(--radius);
+  border-top: 3px solid var(--border);
+}
+.summary-card.pptx { border-top-color: var(--text-muted); }
+.summary-card.v1 { border-top-color: var(--navy); }
+.summary-card.v2 { border-top-color: var(--gold); }
+.summary-card h3 { margin-top: 0; font-size: 18px; }
+.summary-card .meta { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
+.summary-card ul { list-style: none; padding: 0; }
+.summary-card li { font-size: 13px; color: var(--text-secondary); padding: 3px 0; display: flex; gap: 6px; }
+.summary-card li::before { content: "—"; color: var(--text-muted); }
+
+/* Responsive */
+@media(max-width:768px) {
+  .page { padding: 40px 20px 60px; }
+  h1 { font-size: 28px; }
+  .summary-grid { grid-template-columns: 1fr; }
+  .comp-table { font-size: 11px; }
+  .comp-table th, .comp-table td { padding: 8px 8px; }
+  .links { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div style="margin-bottom:8px;">
+    <span class="badge badge-navy" style="font-size:11px;">Document interne</span>
+  </div>
+  <h1>Comparaison des <em>présentations</em></h1>
+  <p class="subtitle">Analyse structurée des trois versions : PPTX original Athena SR, V1 premium ABL, V2 administrative ABL.</p>
+
+  <!-- ============================================================
+       SUMMARY CARDS
+       ============================================================ -->
+  <div class="summary-grid">
+    <div class="summary-card pptx">
+      <h3>PPTX original</h3>
+      <div class="meta">Athena SR · PowerPoint · ~2024</div>
+      <ul>
+        <li>19 slides</li>
+        <li>Branding Athena SR</li>
+        <li>Format PowerPoint statique</li>
+        <li>Fond mixte (blanc + bleu)</li>
+        <li>Images stock + logos caisses</li>
+        <li>Pas de responsive</li>
+      </ul>
+    </div>
+    <div class="summary-card v1">
+      <h3>V1 — Premium</h3>
+      <div class="meta">ABL · HTML · 2026</div>
+      <ul>
+        <li>14 slides (condensée)</li>
+        <li>Navy / Gold / Cormorant Garamond</li>
+        <li>Visuels Sora décoratifs</li>
+        <li>Graphique animé (erreurs)</li>
+        <li>Navigation clavier + swipe</li>
+        <li>Responsive tablette + mobile</li>
+      </ul>
+    </div>
+    <div class="summary-card v2">
+      <h3>V2 — Administrative</h3>
+      <div class="meta">ABL · HTML · 2026</div>
+      <ul>
+        <li>19 slides (complète)</li>
+        <li>Blanc / Inter + Plus Jakarta Sans</li>
+        <li>Visuels instructifs uniquement</li>
+        <li>Carte monde conventions SS</li>
+        <li>Navigation clavier + swipe</li>
+        <li>Responsive tablette + mobile</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       POSITIONING TABLE
+       ============================================================ -->
+  <h2>1. Positionnement</h2>
+
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th>Critère</th>
+        <th>PPTX original</th>
+        <th>V1 Premium</th>
+        <th>V2 Administrative</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Cible prospect</td>
+        <td>Généraliste</td>
+        <td>Sensible à l'image, à la confiance, au premium</td>
+        <td>Sensible au détail, à la rigueur, au factuel</td>
+      </tr>
+      <tr>
+        <td>Ton</td>
+        <td>Institutionnel classique</td>
+        <td>Émotionnel, rassurant, premium</td>
+        <td>Pédagogique, exhaustif, neutre</td>
+      </tr>
+      <tr>
+        <td>Branding</td>
+        <td>Athena SR</td>
+        <td>ABL</td>
+        <td>ABL</td>
+      </tr>
+      <tr>
+        <td>Usage type</td>
+        <td>Envoi email / réunion projetée</td>
+        <td>Envoi à un prospect (lien web)</td>
+        <td>Envoi à un prospect (lien web)</td>
+      </tr>
+      <tr>
+        <td>Objectif principal</td>
+        <td>Informer</td>
+        <td>Convaincre par l'image et l'émotion</td>
+        <td>Convaincre par la preuve et le détail</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ============================================================
+       DA TABLE
+       ============================================================ -->
+  <h2>2. Direction artistique</h2>
+
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th>Élément</th>
+        <th>PPTX original</th>
+        <th>V1 Premium</th>
+        <th>V2 Administrative</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Fond dominant</td>
+        <td>Blanc + bleu foncé (alternance)</td>
+        <td>Navy deep (#0f1729) immersif</td>
+        <td>Blanc (#ffffff) et gris clair (#fafafa)</td>
+      </tr>
+      <tr>
+        <td>Couleur texte</td>
+        <td>Blanc / noir selon fond</td>
+        <td>Blanc, touches gold</td>
+        <td>Slate-900 (#1e293b)</td>
+      </tr>
+      <tr>
+        <td>Accent</td>
+        <td>Bleu, rouge</td>
+        <td>Gold (#b8945f)</td>
+        <td>Navy + Gold discret (bordures, filets)</td>
+      </tr>
+      <tr>
+        <td>Police titres</td>
+        <td>Sans-serif générique (PPT)</td>
+        <td>Cormorant Garamond (serif)</td>
+        <td>Plus Jakarta Sans (sans-serif)</td>
+      </tr>
+      <tr>
+        <td>Police corps</td>
+        <td>Sans-serif générique (PPT)</td>
+        <td>Plus Jakarta Sans</td>
+        <td>Inter</td>
+      </tr>
+      <tr>
+        <td>Visuels</td>
+        <td>Images stock, logos caisses</td>
+        <td>10 images Sora (portraits, textures, paysages)</td>
+        <td>Carte monde, logos caisses, 0 image décorative</td>
+      </tr>
+      <tr>
+        <td>Effets</td>
+        <td>Aucun (statique)</td>
+        <td>Overlays dégradés, orbes, backdrop-blur</td>
+        <td>Aucun (clean, flat)</td>
+      </tr>
+      <tr>
+        <td>Graphique</td>
+        <td>Barres (dans PPT)</td>
+        <td>Barres animées gold/rouge</td>
+        <td>Barres animées navy/rouge</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ============================================================
+       TECHNICAL TABLE
+       ============================================================ -->
+  <h2>3. Aspects techniques</h2>
+
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th>Critère</th>
+        <th>PPTX original</th>
+        <th>V1 Premium</th>
+        <th>V2 Administrative</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Format</td>
+        <td>PowerPoint (.pptx)</td>
+        <td>HTML autonome</td>
+        <td>HTML autonome</td>
+      </tr>
+      <tr>
+        <td>Nombre de slides</td>
+        <td>19</td>
+        <td>14</td>
+        <td>19</td>
+      </tr>
+      <tr>
+        <td>Navigation</td>
+        <td>Clic (mode diaporama)</td>
+        <td>Clavier + swipe + dots + flèches</td>
+        <td>Clavier + swipe + dots + flèches</td>
+      </tr>
+      <tr>
+        <td>Responsive</td>
+        <td><span class="cross">Non</span></td>
+        <td><span class="check">Oui</span> (3 breakpoints)</td>
+        <td><span class="check">Oui</span> (3 breakpoints)</td>
+      </tr>
+      <tr>
+        <td>Hébergement</td>
+        <td>Fichier local / email</td>
+        <td>GitHub Pages</td>
+        <td>GitHub Pages</td>
+      </tr>
+      <tr>
+        <td>URL publique</td>
+        <td>N/A</td>
+        <td>/presentation.html (cachée)</td>
+        <td>/presentation-v2.html (cachée)</td>
+      </tr>
+      <tr>
+        <td>Poids estimé</td>
+        <td>~2 Mo (+ images embarquées)</td>
+        <td>~50 Ko HTML + ~1 Mo assets</td>
+        <td>~45 Ko HTML + ~200 Ko assets</td>
+      </tr>
+      <tr>
+        <td>Dépendances</td>
+        <td>Microsoft Office</td>
+        <td>Google Fonts (2)</td>
+        <td>Google Fonts (2)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ============================================================
+       SLIDE-BY-SLIDE MAPPING
+       ============================================================ -->
+  <h2>4. Correspondance slide par slide</h2>
+  <p>Mapping entre les 19 slides du PPTX original, les 14 de la V1 et les 19 de la V2.</p>
+
+  <table class="slide-map">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Thème</th>
+        <th>PPTX</th>
+        <th>V1 Premium</th>
+        <th>V2 Administrative</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Couverture</td>
+        <td>Slide 1</td>
+        <td>Slide 1 — split image Sora</td>
+        <td>Slide 1 — centré, fond blanc</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Accroche (4 mots-clés)</td>
+        <td>Slide 2</td>
+        <td>Slide 2 — pictos Sora + texture</td>
+        <td>Slide 2 — cards blanches + icônes</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Chiffres repères</td>
+        <td>Slide 3</td>
+        <td>Slide 3 — stat cards navy</td>
+        <td>Slide 3 — stat cards bordées</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Système 3 piliers</td>
+        <td>Slide 4</td>
+        <td>Slide 4 — pillar diagram gradient</td>
+        <td>Slide 4 — pillar blocks bordés</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>42 régimes</td>
+        <td>Slide 5</td>
+        <td>Slide 5 — 2 colonnes + logos</td>
+        <td>Slide 5 — comparison table + formules</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>Carrières internationales</td>
+        <td>Slide 6</td>
+        <td>Slide 6 — fond globe Sora</td>
+        <td>Slide 6 — <strong>carte monde</strong> + légende + Q&A</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>Constat risques + graphique</td>
+        <td>Slide 7</td>
+        <td>Slide 7 — fond documents Sora</td>
+        <td>Slide 7 — graphique navy/rouge + alerte</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>Parcours 3 étapes</td>
+        <td>Slide 8</td>
+        <td>Slide 8 — timeline gold</td>
+        <td>Slide 8 — timeline navy sobre</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>Reconstitution — Le RIS</td>
+        <td>Slides 9-10 <span class="merged">fusionnées</span></td>
+        <td>Slide 9 <span class="merged">fusionnée</span></td>
+        <td>Slide 9 — RIS contenu + limites + art. réglementaire</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>Reconstitution — Méthode</td>
+        <td>Slide 11</td>
+        <td><span class="merged">absent (fusionné)</span></td>
+        <td>Slide 10 — collecte / analyse / régularisation + docs</td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td>Reconstitution — Subtilités</td>
+        <td>Slide 12</td>
+        <td>Slide 10 — knowledge grid</td>
+        <td>Slide 11 — knowledge grid + expertise box</td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>Stratégie — Process</td>
+        <td>Slide 13</td>
+        <td><span class="merged">absent (fusionné)</span></td>
+        <td>Slide 12 — process steps + objectifs</td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td>Stratégie — Étude personnalisée</td>
+        <td>Slide 14</td>
+        <td>Slide 11 — split image Sora</td>
+        <td>Slide 13 — 6 cards détaillées</td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td>Stratégie — Synthèse transition</td>
+        <td>Slide 15</td>
+        <td><span class="merged">absent (fusionné)</span></td>
+        <td>Slide 14 — 3 axes (anticiper, cotisations, dispositifs)</td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td>Liquidation — Process</td>
+        <td>Slide 16</td>
+        <td>Slide 12 <span class="merged">fusionnée</span></td>
+        <td>Slide 15 — process steps + 3 étapes détaillées</td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td>Liquidation — Vérification</td>
+        <td>Slide 17</td>
+        <td><span class="merged">absent (fusionné)</span></td>
+        <td>Slide 16 — contrôle, consolidation, recours, post-liq.</td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td>Synthèse / Closing</td>
+        <td>Slide 18</td>
+        <td>Slide 13 — fond paysage Sora</td>
+        <td>Slide 17 — 3 blocs + encadré indépendance</td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td>Pourquoi ABL</td>
+        <td><span class="new-slide">n'existe pas</span></td>
+        <td><span class="new-slide">n'existe pas</span></td>
+        <td>Slide 18 — <span class="new-slide">nouveau</span> 6 différenciateurs</td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td>Contact</td>
+        <td>Slide 19</td>
+        <td>Slide 14</td>
+        <td>Slide 19</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ============================================================
+       CONTENT DEPTH
+       ============================================================ -->
+  <h2>5. Profondeur du contenu</h2>
+
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th>Sujet</th>
+        <th>PPTX original</th>
+        <th>V1 Premium</th>
+        <th>V2 Administrative</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Reconstitution</td>
+        <td>4 slides (captures RIS + méthode + expertise)</td>
+        <td>2 slides (condensé)</td>
+        <td>3 slides (RIS détail + méthode + subtilités)</td>
+      </tr>
+      <tr>
+        <td>Stratégie</td>
+        <td>3 slides (process + étude + synthèse)</td>
+        <td>1 slide (condensé)</td>
+        <td>3 slides (process + étude 6 volets + synthèse transition)</td>
+      </tr>
+      <tr>
+        <td>Liquidation</td>
+        <td>2 slides (process + vérification)</td>
+        <td>1 slide (condensé)</td>
+        <td>2 slides (process + vérification/recours)</td>
+      </tr>
+      <tr>
+        <td>International</td>
+        <td>1 slide (4 questions + carte)</td>
+        <td>1 slide (4 questions + globe Sora)</td>
+        <td>1 slide (<strong>carte monde</strong> + légende + cadre juridique + 4 Q&A)</td>
+      </tr>
+      <tr>
+        <td>Références réglementaires</td>
+        <td><span class="partial">Partielles</span></td>
+        <td><span class="partial">Partielles</span> (art. D161-2-1-4)</td>
+        <td><span class="check">Détaillées</span> (art. D161-2-1-4, CE 883/2004, 987/2009)</td>
+      </tr>
+      <tr>
+        <td>Différenciateurs ABL</td>
+        <td>Mentions ponctuelles</td>
+        <td>Mentions ponctuelles</td>
+        <td><span class="check">Slide dédiée</span> (6 engagements structurés)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ============================================================
+       RECOMMENDATIONS
+       ============================================================ -->
+  <h2>6. Recommandation d'usage</h2>
+
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th>Situation</th>
+        <th>Version recommandée</th>
+        <th>Justification</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1<sup>er</sup> contact — prospect dirigeant / cadre supérieur</td>
+        <td><span class="badge badge-navy">V1 Premium</span></td>
+        <td>Image de confiance, différenciation par la qualité visuelle, impact émotionnel fort</td>
+      </tr>
+      <tr>
+        <td>1<sup>er</sup> contact — prospect DRH / DAF / expert-comptable</td>
+        <td><span class="badge badge-gold">V2 Administrative</span></td>
+        <td>Profils habitués aux documents structurés, sensibles au contenu technique et à l'exhaustivité</td>
+      </tr>
+      <tr>
+        <td>Réunion de présentation projetée</td>
+        <td><span class="badge badge-navy">V1 Premium</span></td>
+        <td>Meilleur rendu sur grand écran, visuels immersifs, rythme narratif adapté à l'oral</td>
+      </tr>
+      <tr>
+        <td>Envoi post-rendez-vous (support de référence)</td>
+        <td><span class="badge badge-gold">V2 Administrative</span></td>
+        <td>Le prospect peut relire dans le détail, retrouver les informations techniques</td>
+      </tr>
+      <tr>
+        <td>Appel d'offres / consultation entreprise</td>
+        <td><span class="badge badge-gold">V2 Administrative</span></td>
+        <td>Crédibilité documentaire, références réglementaires, exhaustivité du parcours</td>
+      </tr>
+      <tr>
+        <td>Partenariat avec un cabinet comptable / avocat</td>
+        <td><span class="badge badge-gold">V2 Administrative</span></td>
+        <td>Les professionnels attendent de la rigueur et du contenu factuel</td>
+      </tr>
+      <tr>
+        <td>Prospect international (expat)</td>
+        <td><span class="badge badge-gold">V2 Administrative</span></td>
+        <td>Carte des conventions détaillée, cadre juridique précis (CE 883/2004)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ============================================================
+       LINKS
+       ============================================================ -->
+  <h2>7. Accès rapide</h2>
+
+  <div class="links">
+    <a href="presentation.html" class="link-card">
+      <h4>V1 — Premium</h4>
+      <p>14 slides · Navy/Gold · Visuels Sora</p>
+    </a>
+    <a href="presentation-v2.html" class="link-card">
+      <h4>V2 — Administrative</h4>
+      <p>19 slides · Blanc · Contenu exhaustif</p>
+    </a>
+  </div>
+
+  <div style="margin-top:48px; padding-top:20px; border-top:1px solid var(--border); font-size:11px; color:var(--text-muted); text-align:center;">
+    ABL — Document interne · Comparaison des présentations · Mars 2026
+  </div>
+
+</div>
+
+</body>
+</html>
