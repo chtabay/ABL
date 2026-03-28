@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ABL — Expert indépendant en retraite obligatoire</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <style>
 /* ============================================================
@@ -254,19 +254,6 @@ img { display: block; max-width: 100%; }
   font-family: var(--font-display); font-size: 56px; font-weight: 600; color: var(--white);
   line-height: 1.1; margin-bottom: 20px;
 }
-.visual-placeholder {
-  border: 2px dashed rgba(255,255,255,0.2); border-radius: var(--radius);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 8px; color: rgba(255,255,255,0.4); font-size: 12px; text-align: center;
-  padding: 24px; min-height: 200px; position: relative; overflow: hidden;
-  background: rgba(255,255,255,0.03);
-}
-.visual-placeholder.light {
-  border-color: rgba(0,0,0,0.1); color: var(--slate); background: var(--warm-gray);
-}
-.visual-placeholder .ph-icon { font-size: 32px; opacity: 0.5; }
-.visual-placeholder .ph-label { font-weight: 600; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
-.visual-placeholder .ph-spec { font-size: 10px; max-width: 260px; line-height: 1.5; opacity: 0.7; }
 .hero h1 em { font-style: normal; color: var(--gold); }
 .hero .lead {
   font-size: 18px; color: var(--slate-light); max-width: 560px;
@@ -314,8 +301,12 @@ img { display: block; max-width: 100%; }
 /* ============================================================
    STEPS
    ============================================================ */
-.steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 32px; counter-reset: step; }
-.step { text-align: center; position: relative; }
+.steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; position: relative; }
+.steps::before {
+  content: ''; position: absolute; top: 26px; left: 15%; right: 15%;
+  height: 2px; background: linear-gradient(90deg, var(--gold), rgba(184,148,95,0.2));
+}
+.step { text-align: center; position: relative; z-index: 1; }
 .step-num {
   width: 52px; height: 52px; border-radius: 50%; display: flex;
   align-items: center; justify-content: center; margin: 0 auto 14px;
@@ -323,9 +314,32 @@ img { display: block; max-width: 100%; }
   background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
   color: var(--navy); box-shadow: 0 4px 16px rgba(201,165,92,0.3);
 }
+.step:nth-child(2) .step-num { background: rgba(184,148,95,0.15); border: 2px solid var(--gold); color: var(--gold); box-shadow: none; }
+.step:nth-child(3) .step-num { background: rgba(255,255,255,0.8); border: 2px solid var(--slate-light); color: var(--slate); box-shadow: none; }
 .step h4 { font-size: 16px; margin-bottom: 6px; }
 .step p { font-size: 13px; color: var(--slate); line-height: 1.6; }
-@media(max-width:768px) { .steps { grid-template-columns: repeat(2,1fr); } }
+.step-detail { list-style: none; padding: 0; margin-top: 12px; text-align: left; }
+.step-detail li { font-size: 12px; color: var(--slate); line-height: 1.7; padding: 2px 0; display: flex; gap: 6px; }
+.step-detail li::before { content: "→"; color: var(--gold); flex-shrink: 0; font-weight: 700; }
+@media(max-width:768px) { .steps { grid-template-columns: 1fr; gap: 24px; } .steps::before { display: none; } }
+
+/* ============================================================
+   INTERNATIONAL BLOCK
+   ============================================================ */
+.intl-block { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+.intl-map { width: 100%; border-radius: var(--radius); }
+.intl-legend { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+.intl-legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--slate); }
+.intl-legend-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+.intl-facts { list-style: none; padding: 0; margin: 0; }
+.intl-facts li {
+  padding: 14px 0; border-bottom: 1px solid rgba(0,0,0,0.06);
+  font-size: 14px; color: var(--navy); line-height: 1.6;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.intl-facts li:last-child { border-bottom: none; }
+.intl-icon { font-size: 18px; flex-shrink: 0; }
+@media(max-width:768px) { .intl-block { grid-template-columns: 1fr; } }
 
 /* ============================================================
    SEGMENTS
@@ -360,6 +374,11 @@ img { display: block; max-width: 100%; }
   background: linear-gradient(135deg, var(--gold-pale) 0%, var(--off-white) 100%);
   display: flex; align-items: center; justify-content: center;
   font-size: 32px; color: var(--gold);
+  border: 3px solid var(--white); box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+.team-photo {
+  width: 120px; height: 120px; border-radius: 50%; object-fit: cover;
+  margin: 0 auto 16px; display: block;
   border: 3px solid var(--white); box-shadow: 0 4px 16px rgba(0,0,0,0.06);
 }
 .team-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
@@ -517,6 +536,21 @@ img { display: block; max-width: 100%; }
 .page.active { display: block; }
 
 /* ============================================================
+   CAISSES LOGO BAR
+   ============================================================ */
+.caisses-bar {
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 24px;
+  padding: 20px 0;
+}
+.caisses-bar img {
+  height: 36px; width: auto; object-fit: contain;
+  filter: grayscale(100%); opacity: 0.55;
+  transition: all 0.25s;
+}
+.caisses-bar img:hover { filter: grayscale(0%); opacity: 1; }
+@media(max-width:640px) { .caisses-bar img { height: 28px; } .caisses-bar { gap: 16px; } }
+
+/* ============================================================
    LOGO PARTNERS
    ============================================================ */
 .partners { display: flex; justify-content: center; align-items: center; gap: 36px; flex-wrap: wrap; }
@@ -525,48 +559,6 @@ img { display: block; max-width: 100%; }
   padding: 10px 20px; border: 1px solid rgba(0,0,0,0.06); border-radius: var(--radius-sm);
   background: var(--white);
 }
-
-/* ============================================================
-   DA SWITCHER (dev tool)
-   ============================================================ */
-.da-toggle {
-  position: fixed; bottom: 24px; right: 24px; z-index: 9999;
-  width: 48px; height: 48px; border-radius: 50%; border: none; cursor: pointer;
-  background: var(--navy); color: var(--white); font-size: 20px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.25); transition: all 0.2s;
-  display: flex; align-items: center; justify-content: center;
-}
-.da-toggle:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(0,0,0,0.35); }
-.da-toggle.open { border-radius: 50% 50% 0 0; }
-
-.da-panel {
-  position: fixed; bottom: 80px; right: 24px; z-index: 9998;
-  width: 320px; max-height: 80vh; overflow-y: auto;
-  background: var(--white); border-radius: 12px;
-  box-shadow: 0 12px 48px rgba(0,0,0,0.18); border: 1px solid rgba(0,0,0,0.08);
-  padding: 0; transform: translateY(12px); opacity: 0; pointer-events: none;
-  transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
-}
-.da-panel.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
-
-.da-panel-header {
-  padding: 16px 20px 12px; border-bottom: 1px solid rgba(0,0,0,0.06);
-  font-weight: 700; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
-  color: #6b7280;
-}
-.da-option {
-  padding: 16px 20px; cursor: pointer; transition: background 0.15s;
-  border-bottom: 1px solid rgba(0,0,0,0.04);
-}
-.da-option:hover { background: #f9fafb; }
-.da-option.active { background: #f0f4ff; }
-.da-option-name { font-weight: 700; font-size: 14px; color: #1a1a1a; margin-bottom: 6px; }
-.da-option-detail { font-size: 11px; color: #6b7280; line-height: 1.5; }
-.da-swatches { display: flex; gap: 4px; margin-top: 8px; }
-.da-swatch { width: 20px; height: 20px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.1); }
-.da-font-preview { margin-top: 8px; line-height: 1.2; }
-.da-font-display { font-size: 22px; color: #1a1a1a; }
-.da-font-body { font-size: 13px; color: #6b7280; margin-top: 2px; }
 
 /* ============================================================
    COOKIE CONSENT BANNER
@@ -670,87 +662,6 @@ img { display: block; max-width: 100%; }
 </head>
 <body>
 
-<!-- DA SWITCHER -->
-<button class="da-toggle" id="daToggle" onclick="toggleDAPanel()" title="Changer la direction artistique">🎨</button>
-<div class="da-panel" id="daPanel">
-  <div class="da-panel-header">Direction Artistique</div>
-
-  <div class="da-option active" onclick="applyDA('a')">
-    <div class="da-option-name">A · Garamond Chaud</div>
-    <div class="da-option-detail">Cormorant Garamond + Plus Jakarta Sans</div>
-    <div class="da-font-preview">
-      <div class="da-font-display" style="font-family:'Cormorant Garamond',serif;font-weight:600;">Vos droits de retraite</div>
-      <div class="da-font-body" style="font-family:'Plus Jakarta Sans',sans-serif;">Un accompagnement expert et indépendant</div>
-    </div>
-    <div class="da-swatches">
-      <div class="da-swatch" style="background:#1a2744;" title="Navy"></div>
-      <div class="da-swatch" style="background:#b8945f;" title="Gold"></div>
-      <div class="da-swatch" style="background:#faf9f7;" title="Fond"></div>
-      <div class="da-swatch" style="background:#6b7280;" title="Texte"></div>
-    </div>
-  </div>
-
-  <div class="da-option" onclick="applyDA('b')">
-    <div class="da-option-name">B · Lora Autoritaire</div>
-    <div class="da-option-detail">Lora + Source Sans 3</div>
-    <div class="da-font-preview">
-      <div class="da-font-display" style="font-family:'Lora',serif;font-weight:600;">Vos droits de retraite</div>
-      <div class="da-font-body" style="font-family:'Source Sans 3',sans-serif;">Un accompagnement expert et indépendant</div>
-    </div>
-    <div class="da-swatches">
-      <div class="da-swatch" style="background:#1e293b;" title="Navy"></div>
-      <div class="da-swatch" style="background:#a67c52;" title="Bronze"></div>
-      <div class="da-swatch" style="background:#f8f7f4;" title="Fond"></div>
-      <div class="da-swatch" style="background:#64748b;" title="Texte"></div>
-    </div>
-  </div>
-
-  <div class="da-option" onclick="applyDA('c')">
-    <div class="da-option-name">C · Baskerville Classique</div>
-    <div class="da-option-detail">Libre Baskerville + Outfit</div>
-    <div class="da-font-preview">
-      <div class="da-font-display" style="font-family:'Libre Baskerville',serif;font-weight:700;">Vos droits de retraite</div>
-      <div class="da-font-body" style="font-family:'Outfit',sans-serif;">Un accompagnement expert et indépendant</div>
-    </div>
-    <div class="da-swatches">
-      <div class="da-swatch" style="background:#0c2340;" title="Navy"></div>
-      <div class="da-swatch" style="background:#c4953a;" title="Or vif"></div>
-      <div class="da-swatch" style="background:#fdfcfa;" title="Fond"></div>
-      <div class="da-swatch" style="background:#71717a;" title="Texte"></div>
-    </div>
-  </div>
-
-  <div class="da-option" onclick="applyDA('d')">
-    <div class="da-option-name">D · Playfair Éditorial</div>
-    <div class="da-option-detail">Playfair Display + Inter</div>
-    <div class="da-font-preview">
-      <div class="da-font-display" style="font-family:'Playfair Display',serif;font-weight:700;">Vos droits de retraite</div>
-      <div class="da-font-body" style="font-family:'Inter',sans-serif;">Un accompagnement expert et indépendant</div>
-    </div>
-    <div class="da-swatches">
-      <div class="da-swatch" style="background:#14213d;" title="Navy"></div>
-      <div class="da-swatch" style="background:#d4a44c;" title="Or classique"></div>
-      <div class="da-swatch" style="background:#fcfcfc;" title="Fond"></div>
-      <div class="da-swatch" style="background:#737373;" title="Texte"></div>
-    </div>
-  </div>
-
-  <div class="da-option" onclick="applyDA('e')">
-    <div class="da-option-name">E · Fraunces Moderne</div>
-    <div class="da-option-detail">Fraunces + Sora</div>
-    <div class="da-font-preview">
-      <div class="da-font-display" style="font-family:'Fraunces',serif;font-weight:600;">Vos droits de retraite</div>
-      <div class="da-font-body" style="font-family:'Sora',sans-serif;">Un accompagnement expert et indépendant</div>
-    </div>
-    <div class="da-swatches">
-      <div class="da-swatch" style="background:#1b2a4a;" title="Navy"></div>
-      <div class="da-swatch" style="background:#c08b5c;" title="Cuivre"></div>
-      <div class="da-swatch" style="background:#f7f5f0;" title="Fond"></div>
-      <div class="da-swatch" style="background:#78716c;" title="Texte"></div>
-    </div>
-  </div>
-</div>
-
 <!-- ================================================================
      HEADER
      ================================================================ -->
@@ -797,21 +708,22 @@ img { display: block; max-width: 100%; }
           <div class="stat"><div class="stat-value">42</div><div class="stat-label">Régimes maîtrisés</div></div>
         </div>
       </div>
-      <!-- VISUEL V1 : HERO -->
-      <div class="visual-placeholder" style="min-height:420px;border-radius:var(--radius);">
-        <div class="ph-icon">📷</div>
-        <div class="ph-label">Visuel V1 — Hero</div>
-        <div class="ph-spec">Photo pro, femme 50-55 ans, sourire confiant, bureau moderne épuré, lumière naturelle douce. Tons chauds, beige, blanc cassé, touches navy. Corporate haut de gamme français.</div>
-      </div>
+      <img src="assets/cover-portrait.webp" alt="Conseillère retraite ABL" style="width:100%;max-height:420px;object-fit:cover;border-radius:var(--radius);" loading="lazy">
     </div>
   </section>
 
   <!-- PROBLEM -->
   <div class="problem-bar">
-    <div class="stat">84%</div>
-    <p>des relevés de carrière comportent des erreurs</p>
-    <p class="sub">Chaque erreur, c'est de l'argent perdu. Chaque mois. À vie.</p>
-    <a href="#" onclick="nav('simulateur')" class="btn btn-primary" style="margin-top:20px;">Vérifier mon relevé</a>
+    <div class="stat">21,4 %</div>
+    <p>d'erreurs sur le calcul des pensions — <em>Cour des Comptes, 2024</em></p>
+    <p class="sub">Plus d'une pension liquidée sur cinq comporte une erreur. Chaque mois. À vie.</p>
+    <div style="display:flex;gap:32px;justify-content:center;margin-top:24px;flex-wrap:wrap;">
+      <div style="text-align:center;"><div style="font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--gold-light);">353 Md€</div><div style="font-size:11px;color:rgba(255,255,255,0.6);">versés annuellement</div></div>
+      <div style="text-align:center;"><div style="font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--gold-light);">17,9 M</div><div style="font-size:11px;color:rgba(255,255,255,0.6);">bénéficiaires</div></div>
+      <div style="text-align:center;"><div style="font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--gold-light);">42</div><div style="font-size:11px;color:rgba(255,255,255,0.6);">régimes nationaux</div></div>
+      <div style="text-align:center;"><div style="font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--gold-light);">1 512 €</div><div style="font-size:11px;color:rgba(255,255,255,0.6);">pension moyenne</div></div>
+    </div>
+    <a href="#" onclick="nav('simulateur')" class="btn btn-primary" style="margin-top:24px;">Vérifier mon relevé</a>
   </div>
 
   <!-- OFFRES -->
@@ -892,35 +804,22 @@ img { display: block; max-width: 100%; }
       <p class="section-subtitle">Nous adaptons notre approche à votre profil. Les mêmes exigences, le bon angle.</p>
       <div class="grid grid-4">
         <div class="segment-card" onclick="nav('dirigeant')">
-          <!-- VISUEL V2a : icône/illustration Dirigeant -->
-          <div class="visual-placeholder light" style="min-height:100px;border-radius:var(--radius-sm);margin-bottom:12px;">
-            <div class="ph-icon">👔</div>
-            <div class="ph-spec">Illustration flat : silhouette chef d'entreprise, graphique descendant, tons navy/or</div>
-          </div>
+          <img src="assets/picto-technique.webp" alt="" style="width:64px;height:64px;object-fit:contain;margin-bottom:12px;">
           <h3>Dirigeant / TNS</h3>
           <p>Évitez la chute de 70% de vos revenus</p>
         </div>
         <div class="segment-card">
-          <div class="visual-placeholder light" style="min-height:100px;border-radius:var(--radius-sm);margin-bottom:12px;">
-            <div class="ph-icon">👤</div>
-            <div class="ph-spec">Illustration flat : relevé de carrière avec loupe, anomalies surlignées</div>
-          </div>
+          <img src="assets/picto-universel.webp" alt="" style="width:64px;height:64px;object-fit:contain;margin-bottom:12px;">
           <h3>Salarié</h3>
           <p>Récupérez les droits oubliés par les caisses</p>
         </div>
         <div class="segment-card">
-          <div class="visual-placeholder light" style="min-height:100px;border-radius:var(--radius-sm);margin-bottom:12px;">
-            <div class="ph-icon">✈️</div>
-            <div class="ph-spec">Illustration flat : globe avec drapeaux, passeport, symbole trimestres</div>
-          </div>
+          <img src="assets/picto-nebuleux.webp" alt="" style="width:64px;height:64px;object-fit:contain;margin-bottom:12px;">
           <h3>Expatrié</h3>
           <p>Vos années à l'étranger comptent</p>
         </div>
         <div class="segment-card" onclick="nav('entreprise')">
-          <div class="visual-placeholder light" style="min-height:100px;border-radius:var(--radius-sm);margin-bottom:12px;">
-            <div class="ph-icon">🏢</div>
-            <div class="ph-spec">Illustration flat : immeuble + groupe de personnes, badge RH</div>
-          </div>
+          <img src="assets/picto-personnel.webp" alt="" style="width:64px;height:64px;object-fit:contain;margin-bottom:12px;">
           <h3>Entreprise</h3>
           <p>La retraite, votre prochain levier RH</p>
         </div>
@@ -928,16 +827,68 @@ img { display: block; max-width: 100%; }
     </div>
   </section>
 
+  <!-- INTERNATIONAL -->
+  <section class="section">
+    <div class="section-label">Carrières internationales</div>
+    <h2 class="section-title">Vos années à l'étranger <span style="color:var(--gold);">comptent</span></h2>
+    <p class="section-subtitle">Les expatriés et les carrières mixtes font face à une complexité accrue. Nous maîtrisons les cadres réglementaires internationaux pour protéger vos droits.</p>
+    <div class="intl-block" style="margin-top:40px;">
+      <div>
+        <img src="assets/carte monde.png" alt="Carte des conventions bilatérales de sécurité sociale" class="intl-map" loading="lazy">
+        <div class="intl-legend">
+          <div class="intl-legend-item"><div class="intl-legend-dot" style="background:#1a5276;"></div> UE/EEE — Règlement CE 883/2004</div>
+          <div class="intl-legend-item"><div class="intl-legend-dot" style="background:#b8945f;"></div> Conventions bilatérales</div>
+          <div class="intl-legend-item"><div class="intl-legend-dot" style="background:#d5d8dc;"></div> Hors convention</div>
+        </div>
+      </div>
+      <div>
+        <ul class="intl-facts">
+          <li><span class="intl-icon">🇪🇺</span><div><strong>Union Européenne / EEE / Suisse</strong><br>Le règlement CE 883/2004 coordonne les droits. Les trimestres cotisés dans un État membre sont pris en compte pour le calcul de la pension française.</div></li>
+          <li><span class="intl-icon">🤝</span><div><strong>Conventions bilatérales</strong><br>La France a signé des accords avec plus de 40 pays (USA, Canada, Japon, Maroc, Tunisie…). Ces conventions évitent la double cotisation et organisent la totalisation des périodes.</div></li>
+          <li><span class="intl-icon">⚠️</span><div><strong>Pays hors convention</strong><br>Sans accord, les cotisations versées à l'étranger peuvent être « invisibles » pour les caisses françaises. L'affiliation à la CFE ou le rachat de trimestres sont alors les leviers essentiels.</div></li>
+          <li><span class="intl-icon">📋</span><div><strong>Types de détachement</strong><br>Détachement (maintien au régime français), expatriation (régime local), contrat local : chaque situation a un impact différent sur vos droits.</div></li>
+        </ul>
+        <a href="#" onclick="nav('contact')" class="btn btn-primary" style="margin-top:16px;">Étudier ma situation internationale</a>
+      </div>
+    </div>
+  </section>
+
   <!-- METHOD -->
   <section class="section">
     <div class="section-label">Notre méthode</div>
-    <h2 class="section-title">4 étapes vers une retraite sécurisée</h2>
-    <p class="section-subtitle">Un processus rigoureux, une prise en charge complète.</p>
+    <h2 class="section-title">À chaque étape de votre <span style="color:var(--gold);">parcours</span></h2>
+    <p class="section-subtitle">Un accompagnement structuré en trois étapes complémentaires, adaptable selon vos besoins.</p>
     <div class="steps">
-      <div class="step"><div class="step-num">1</div><h4>Écoute</h4><p>Nous recevons vos documents et comprenons votre situation</p></div>
-      <div class="step"><div class="step-num">2</div><h4>Analyse</h4><p>Nous reconstituons votre carrière trimestre par trimestre</p></div>
-      <div class="step"><div class="step-num">3</div><h4>Action</h4><p>Nous corrigeons les erreurs et engageons les démarches</p></div>
-      <div class="step"><div class="step-num">4</div><h4>Résultat</h4><p>Vos droits sont sécurisés, votre retraite est optimisée</p></div>
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Reconstitution</h4>
+        <p>Fiabilisation et optimisation des droits acquis tout au long de la carrière</p>
+        <ul class="step-detail">
+          <li>Analyse ligne par ligne du relevé de carrière (RIS)</li>
+          <li>Détection des erreurs, manquants et anomalies</li>
+          <li>Régularisation auprès des caisses compétentes</li>
+        </ul>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>Stratégie</h4>
+        <p>Audit personnalisé, projections chiffrées et conseils d'optimisation</p>
+        <ul class="step-detail">
+          <li>Estimations nettes à différentes dates de départ</li>
+          <li>Étude des dispositifs : carrière longue, rachat, cumul</li>
+          <li>Stratégie de cotisation et de transition</li>
+        </ul>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>Liquidation</h4>
+        <p>Déclenchement, suivi et vérification des montants liquidés</p>
+        <ul class="step-detail">
+          <li>Dépôt inter-régimes et constitution des dossiers</li>
+          <li>Contrôle des notifications de pension</li>
+          <li>Recours en cas d'écart constaté</li>
+        </ul>
+      </div>
     </div>
   </section>
 
@@ -967,6 +918,27 @@ img { display: block; max-width: 100%; }
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- CAISSES DE RETRAITE -->
+  <section class="section" style="padding-top:48px;padding-bottom:32px;">
+    <div class="section-label">42 régimes maîtrisés</div>
+    <h2 class="section-title" style="font-size:22px;">Les caisses avec lesquelles nous travaillons</h2>
+    <div class="caisses-bar" style="margin-top:24px;">
+      <img src="assets/Assurance retraite.png" alt="CNAV / Assurance Retraite" title="CNAV / Assurance Retraite">
+      <img src="assets/msa.png" alt="MSA" title="MSA">
+      <img src="assets/retraite etat.png" alt="Service des Retraites de l'État" title="SRE">
+      <img src="assets/cnracl.png" alt="CNRACL" title="CNRACL">
+      <img src="assets/RSI.png" alt="SSI (ex-RSI)" title="SSI (ex-RSI)">
+      <img src="assets/agirrarrco.png" alt="AGIRC-ARRCO" title="AGIRC-ARRCO">
+      <img src="assets/ircantec.png" alt="IRCANTEC" title="IRCANTEC">
+      <img src="assets/rafp.jpg" alt="RAFP" title="RAFP">
+      <img src="assets/cipav.png" alt="CIPAV" title="CIPAV">
+      <img src="assets/carpimmo.png" alt="CARPIMKO" title="CARPIMKO">
+      <img src="assets/cnbf.png" alt="CNBF" title="CNBF">
+      <img src="assets/cpr.jpg" alt="CNIEG" title="CNIEG">
+    </div>
+    <p style="text-align:center;font-size:12px;color:var(--slate-light);margin-top:12px;">Régimes de base, complémentaires et spéciaux</p>
   </section>
 
   <!-- PARTNERS -->
@@ -1156,7 +1128,7 @@ img { display: block; max-width: 100%; }
           <!-- Warning -->
           <div class="warning" style="margin-top:24px;">
             <strong>⚠️ Important :</strong> Cette estimation ne tient pas compte des éventuelles
-            <strong>erreurs dans votre relevé de carrière</strong> (84% des relevés en comportent).
+            <strong>erreurs dans votre relevé de carrière</strong> (21,4% des pensions comportent une erreur — Cour des Comptes 2024).
             Vos droits réels pourraient être différents — souvent supérieurs après correction.
           </div>
 
@@ -1307,12 +1279,7 @@ img { display: block; max-width: 100%; }
     <div class="badge badge-navy" style="display:block;text-align:center;width:fit-content;margin:0 auto 20px;">Offre B2B</div>
     <h2 class="section-title">La retraite, votre prochain <span style="color:var(--gold);">levier RH</span></h2>
     <p class="section-subtitle">Formation, sensibilisation, accompagnement collectif. Faites de la préparation retraite un avantage social pour vos collaborateurs.</p>
-    <!-- VISUEL V4 : Formation en entreprise -->
-    <div class="visual-placeholder light" style="max-width:800px;margin:32px auto 0;min-height:280px;">
-      <div class="ph-icon">📷</div>
-      <div class="ph-label">Visuel V4 — Formation B2B</div>
-      <div class="ph-spec">Photo corporate : salle de réunion vitrée, 5-6 personnes en formation. Formatrice debout au tableau blanc. Ambiance collaborative. Lumière naturelle. Style corporate français moderne.</div>
-    </div>
+    <img src="assets/formation-b2b.webp" alt="Formation entreprise ABL" style="max-width:800px;width:100%;margin:32px auto 0;display:block;border-radius:var(--radius);object-fit:cover;max-height:320px;" loading="lazy">
   </section>
 
   <div class="problem-bar" style="padding:36px 40px;">
@@ -1447,12 +1414,7 @@ img { display: block; max-width: 100%; }
   <section class="section">
     <h2 class="section-title">Votre retraite mérite mieux <span style="color:var(--gold);">qu'un formulaire</span></h2>
     <p class="section-subtitle">Nous sommes un cabinet indépendant, spécialisé exclusivement dans les droits de retraite obligatoire. Pas de placement financier, pas de produit à vendre. Juste notre expertise, au service de vos droits.</p>
-    <!-- VISUEL V5 : Photo d'équipe / ambiance cabinet -->
-    <div class="visual-placeholder light" style="max-width:900px;margin:40px auto 0;min-height:320px;">
-      <div class="ph-icon">📷</div>
-      <div class="ph-label">Visuel V5 — Ambiance cabinet</div>
-      <div class="ph-spec">Photo d'équipe : 3 femmes debout dans un bureau lumineux, posture professionnelle et souriante. Décor sobre (bois clair, plantes, lumière naturelle). Pas de photo stock américaine.</div>
-    </div>
+    <img src="assets/ambiance-cabinet.webp" alt="Cabinet ABL" style="max-width:900px;width:100%;margin:40px auto 0;display:block;border-radius:var(--radius);object-fit:cover;max-height:360px;" loading="lazy">
   </section>
 
   <section class="section" style="background:var(--white);max-width:none;padding:80px 40px;">
@@ -1473,31 +1435,19 @@ img { display: block; max-width: 100%; }
     <p class="section-subtitle">Notre équipe est entièrement dédiée à la défense de vos droits de retraite.</p>
     <div class="grid grid-3" style="margin-top:32px;">
       <div class="card team-card">
-        <!-- VISUEL V3a : Photo équipe membre 1 -->
-        <div class="visual-placeholder light" style="width:120px;height:120px;border-radius:50%;margin:0 auto 16px;min-height:auto;">
-          <div class="ph-icon" style="font-size:24px;">📷</div>
-          <div class="ph-spec" style="font-size:8px;">Portrait pro, fond clair</div>
-        </div>
+        <img src="assets/portrait-a.webp" alt="A." class="team-photo">
         <h4>[A. — Prénom Nom]</h4>
         <div class="team-role">Directrice · Experte retraite</div>
         <div class="team-bio">Spécialiste des régimes obligatoires, elle pilote l'ensemble des dossiers complexes et la stratégie du cabinet.</div>
       </div>
       <div class="card team-card">
-        <!-- VISUEL V3b : Photo équipe membre 2 -->
-        <div class="visual-placeholder light" style="width:120px;height:120px;border-radius:50%;margin:0 auto 16px;min-height:auto;">
-          <div class="ph-icon" style="font-size:24px;">📷</div>
-          <div class="ph-spec" style="font-size:8px;">Portrait pro, fond clair</div>
-        </div>
+        <img src="assets/portrait-d.webp" alt="D." class="team-photo">
         <h4>[D. — Prénom Nom]</h4>
         <div class="team-role">Conseillère retraite</div>
         <div class="team-bio">Rigoureuse et à l'écoute, elle accompagne les clients dans la reconstitution de carrière et les démarches de régularisation.</div>
       </div>
       <div class="card team-card">
-        <!-- VISUEL V3c : Photo équipe membre 3 -->
-        <div class="visual-placeholder light" style="width:120px;height:120px;border-radius:50%;margin:0 auto 16px;min-height:auto;">
-          <div class="ph-icon" style="font-size:24px;">📷</div>
-          <div class="ph-spec" style="font-size:8px;">Portrait pro, fond clair</div>
-        </div>
+        <img src="assets/portrait-l.webp" alt="L." class="team-photo">
         <h4>[L. — Prénom Nom]</h4>
         <div class="team-role">Conseillère retraite</div>
         <div class="team-bio">Spécialisée dans les carrières internationales et les multi-régimes, elle traite les dossiers les plus techniques.</div>
@@ -1508,9 +1458,11 @@ img { display: block; max-width: 100%; }
   <section class="section" style="background:var(--white);max-width:none;padding:60px 40px;">
     <div style="max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center;">
       <div><div style="font-family:var(--font-display);font-size:40px;color:var(--gold);">200+</div><div style="font-size:13px;color:var(--slate);">Dossiers traités</div></div>
-      <div><div style="font-family:var(--font-display);font-size:40px;color:var(--gold);">84%</div><div style="font-size:13px;color:var(--slate);">Relevés avec erreurs</div></div>
+      <div><div style="font-family:var(--font-display);font-size:40px;color:var(--gold);">21,4%</div><div style="font-size:13px;color:var(--slate);">Pensions avec erreurs*</div></div>
       <div><div style="font-family:var(--font-display);font-size:40px;color:var(--gold);">4.9/5</div><div style="font-size:13px;color:var(--slate);">Google Reviews</div></div>
-      <div><div style="font-family:var(--font-display);font-size:40px;color:var(--gold);">2</div><div style="font-size:13px;color:var(--slate);">Agences</div></div>
+      <div><div style="font-family:var(--font-display);font-size:40px;color:var(--gold);">42</div><div style="font-size:13px;color:var(--slate);">Régimes maîtrisés</div></div>
+    </div>
+    <div style="text-align:center;margin-top:12px;"><span style="font-size:11px;color:var(--slate-light);">* Source : Cour des Comptes, rapport 2024</span></div>
     </div>
   </section>
 
@@ -2501,82 +2453,6 @@ function renderAnomalyList(result) {
     </div>`;
   });
   container.innerHTML = html;
-}
-
-/* ============================================================
-   DA SWITCHER ENGINE
-   ============================================================ */
-const DA_PRESETS = {
-  a: {
-    '--font-display': "'Cormorant Garamond', Georgia, serif",
-    '--font-body': "'Plus Jakarta Sans', system-ui, sans-serif",
-    '--navy': '#1a2744', '--navy-deep': '#0f1729', '--navy-mid': '#243352', '--navy-light': '#2e4066',
-    '--gold': '#b8945f', '--gold-light': '#d4b683', '--gold-pale': '#f0e6d3',
-    '--slate': '#6b7280', '--slate-light': '#9ca3af',
-    '--off-white': '#faf9f7', '--warm-gray': '#f3f1ed'
-  },
-  b: {
-    '--font-display': "'Lora', Georgia, serif",
-    '--font-body': "'Source Sans 3', system-ui, sans-serif",
-    '--navy': '#1e293b', '--navy-deep': '#0f172a', '--navy-mid': '#334155', '--navy-light': '#475569',
-    '--gold': '#a67c52', '--gold-light': '#c4a07a', '--gold-pale': '#ede4d8',
-    '--slate': '#64748b', '--slate-light': '#94a3b8',
-    '--off-white': '#f8f7f4', '--warm-gray': '#f1efe9'
-  },
-  c: {
-    '--font-display': "'Libre Baskerville', Georgia, serif",
-    '--font-body': "'Outfit', system-ui, sans-serif",
-    '--navy': '#0c2340', '--navy-deep': '#061527', '--navy-mid': '#1a3a5c', '--navy-light': '#2a4f75',
-    '--gold': '#c4953a', '--gold-light': '#dbb56a', '--gold-pale': '#f2e8cf',
-    '--slate': '#71717a', '--slate-light': '#a1a1aa',
-    '--off-white': '#fdfcfa', '--warm-gray': '#f5f3ee'
-  },
-  d: {
-    '--font-display': "'Playfair Display', Georgia, serif",
-    '--font-body': "'Inter', system-ui, sans-serif",
-    '--navy': '#14213d', '--navy-deep': '#0a1128', '--navy-mid': '#1d3557', '--navy-light': '#2b4a6f',
-    '--gold': '#d4a44c', '--gold-light': '#e5c47a', '--gold-pale': '#f5ebd4',
-    '--slate': '#737373', '--slate-light': '#a3a3a3',
-    '--off-white': '#fcfcfc', '--warm-gray': '#f4f2ef'
-  },
-  e: {
-    '--font-display': "'Fraunces', Georgia, serif",
-    '--font-body': "'Sora', system-ui, sans-serif",
-    '--navy': '#1b2a4a', '--navy-deep': '#101b33', '--navy-mid': '#2a3d62', '--navy-light': '#3a5278',
-    '--gold': '#c08b5c', '--gold-light': '#d9ad82', '--gold-pale': '#eee2d0',
-    '--slate': '#78716c', '--slate-light': '#a8a29e',
-    '--off-white': '#f7f5f0', '--warm-gray': '#eeebe4'
-  }
-};
-
-let currentDA = 'a';
-
-function toggleDAPanel() {
-  const panel = document.getElementById('daPanel');
-  const btn = document.getElementById('daToggle');
-  panel.classList.toggle('open');
-  btn.classList.toggle('open');
-}
-
-function applyDA(key) {
-  const preset = DA_PRESETS[key];
-  if (!preset) return;
-  const root = document.documentElement;
-  Object.entries(preset).forEach(([prop, val]) => root.style.setProperty(prop, val));
-
-  document.querySelectorAll('.da-option').forEach(el => el.classList.remove('active'));
-  event.currentTarget.classList.add('active');
-  currentDA = key;
-
-  const headerBg = `rgba(${hexToRgb(preset['--navy'])},0.92)`;
-  document.querySelector('.header.scrolled .header-inner')?.style?.setProperty('background', headerBg);
-}
-
-function hexToRgb(hex) {
-  const r = parseInt(hex.slice(1,3),16);
-  const g = parseInt(hex.slice(3,5),16);
-  const b = parseInt(hex.slice(5,7),16);
-  return `${r},${g},${b}`;
 }
 
 /* ============================================================
