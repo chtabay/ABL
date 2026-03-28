@@ -629,7 +629,9 @@ a { color: inherit; text-decoration: none; }
   .slide-accent::before, .slide-accent::after { display: none !important; }
   .slide-bg-img { position: absolute; }
   .slide-split { height: auto !important; }
-  .slide-split-img { height: 200px !important; }
+  .slide-split-img { display: none !important; }
+  .slide-split { grid-template-columns: 1fr !important; }
+  .slide-split-text { padding: 60px 56px !important; }
   .chart-bar { height: var(--print-h, 0%) !important; transition: none !important; }
   .nav-dot, .nav-arrow { display: none !important; }
   a { text-decoration: none; }
