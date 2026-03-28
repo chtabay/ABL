@@ -608,6 +608,31 @@ a { color: inherit; text-decoration: none; }
 .logos-divider {
   width: 1px; height: 28px; background: rgba(255,255,255,0.1); margin: 0 4px;
 }
+
+/* ============================================================
+   PRINT — all slides visible, one per page
+   ============================================================ */
+@media print {
+  html, body { overflow: visible; height: auto; background: #fff; }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .deck { position: static; width: auto; height: auto; overflow: visible; }
+  .slide {
+    position: static; opacity: 1 !important; transform: none !important;
+    pointer-events: auto; page-break-after: always; page-break-inside: avoid;
+    width: 100%; height: 100vh; overflow: hidden;
+  }
+  .slide.prev { opacity: 1 !important; transform: none !important; }
+  .nav-bar { display: none !important; }
+  .slide-dark::before, .slide-dark::after,
+  .slide-accent::before, .slide-accent::after { display: none; }
+  .chart-bar { height: attr(data-height %) !important; }
+  .chart-bar[data-height="32"] { height: 32% !important; }
+  .chart-bar[data-height="37"] { height: 37% !important; }
+  .chart-bar[data-height="42"] { height: 42% !important; }
+  .chart-bar[data-height="47"] { height: 47% !important; }
+  .chart-bar[data-height="56"] { height: 56% !important; }
+  .chart-bar[data-height="65"] { height: 65% !important; }
+}
 </style>
 </head>
 <body>

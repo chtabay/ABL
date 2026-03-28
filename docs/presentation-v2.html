@@ -486,6 +486,29 @@ strong { font-weight: 600; }
   .qa-item p { font-size: 13px; }
   .logos-bar img { height: 18px !important; }
 }
+
+/* ============================================================
+   PRINT — all slides visible, one per page
+   ============================================================ */
+@media print {
+  html, body { overflow: visible; height: auto; }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .deck { position: static; width: auto; height: auto; overflow: visible; }
+  .slide {
+    position: static; opacity: 1 !important; transform: none !important;
+    pointer-events: auto; page-break-after: always; page-break-inside: avoid;
+    width: 100%; height: 100vh; overflow: hidden;
+  }
+  .slide.prev { opacity: 1 !important; transform: none !important; }
+  .nav-bar { display: none !important; }
+  .cover-decoration { display: none; }
+  .chart-bar[data-height="32"] { height: 32% !important; }
+  .chart-bar[data-height="37"] { height: 37% !important; }
+  .chart-bar[data-height="42"] { height: 42% !important; }
+  .chart-bar[data-height="47"] { height: 47% !important; }
+  .chart-bar[data-height="56"] { height: 56% !important; }
+  .chart-bar[data-height="65"] { height: 65% !important; }
+}
 </style>
 </head>
 <body>
