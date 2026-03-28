@@ -393,11 +393,9 @@ a { color: inherit; text-decoration: none; }
   font-family: var(--font-body); font-size: 24px; font-weight: 700;
   letter-spacing: 0.02em;
 }
-.accroche-word .picto-placeholder {
-  width: 64px; height: 64px; border-radius: 50%; margin: 0 auto 12px;
-  display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(135deg, rgba(184,148,95,0.15) 0%, rgba(184,148,95,0.05) 100%);
-  border: 1px solid rgba(184,148,95,0.2); font-size: 28px;
+.accroche-word .picto-img {
+  width: 80px; height: 80px; margin: 0 auto 12px; display: block;
+  object-fit: contain; filter: drop-shadow(0 2px 8px rgba(184,148,95,0.3));
 }
 
 /* ============================================================
@@ -554,10 +552,10 @@ a { color: inherit; text-decoration: none; }
   <div class="s-content s-center">
     <div class="s-label">La retraite en France, un sujet…</div>
     <div class="accroche-grid">
-      <div class="accroche-word"><div class="picto-placeholder">🌍</div><h3>Universel</h3></div>
-      <div class="accroche-word"><div class="picto-placeholder">👤</div><h3>Personnel</h3></div>
-      <div class="accroche-word"><div class="picto-placeholder">🌫️</div><h3>Nébuleux</h3></div>
-      <div class="accroche-word"><div class="picto-placeholder">⚙️</div><h3>Technique</h3></div>
+      <div class="accroche-word"><img src="assets/picto-universel.webp" alt="" class="picto-img"><h3>Universel</h3></div>
+      <div class="accroche-word"><img src="assets/picto-personnel.webp" alt="" class="picto-img"><h3>Personnel</h3></div>
+      <div class="accroche-word"><img src="assets/picto-nebuleux.webp" alt="" class="picto-img"><h3>Nébuleux</h3></div>
+      <div class="accroche-word"><img src="assets/picto-technique.webp" alt="" class="picto-img"><h3>Technique</h3></div>
     </div>
   </div>
 </div>
@@ -641,31 +639,47 @@ a { color: inherit; text-decoration: none; }
 <div class="slide slide-light" data-slide="4">
   <div class="s-content">
     <div class="s-label">Les retraites obligatoires en France</div>
-    <div class="s-title">42 régimes <em>nationaux</em></div>
-    <div class="s-grid s-grid-2" style="margin-top:8px;">
-      <div class="info-card">
-        <h4>Régimes de base</h4>
-        <p>Des <strong>trimestres acquis</strong> qui fixent un taux, appliqué à une moyenne de revenus.</p>
-        <p style="margin-top:8px; font-size:12px; opacity:0.7;">Cotisations plafonnées · Mécanismes de lissage</p>
-        <div class="logos-bar" style="margin-top:16px; justify-content:flex-start; gap:12px; padding:12px 0 0; border-top:1px solid rgba(0,0,0,0.06);">
-          <img src="assets/logos/Assurance retraite.png" alt="CARSAT" title="Régime Général (CARSAT)" style="height:28px;">
-          <img src="assets/logos/msa.png" alt="MSA" title="MSA (agricole)" style="height:28px;">
-          <img src="assets/logos/retraite etat.png" alt="SRE" title="SRE — Retraites de l'État" style="height:28px;">
-          <img src="assets/logos/cnracl.png" alt="CNRACL" title="CNRACL (territoriaux)" style="height:28px;">
-          <img src="assets/logos/cpr.jpg" alt="CPR" title="CPR SNCF" style="height:28px;">
-          <img src="assets/logos/cipav.png" alt="CIPAV" title="CIPAV (libéraux)" style="height:28px;">
-          <img src="assets/logos/carpimmo.png" alt="CARPIMKO" title="CARPIMKO (auxiliaires médicaux)" style="height:28px;">
-          <img src="assets/logos/cnbf.png" alt="CNBF" title="CNBF (avocats)" style="height:28px;">
+    <div class="s-title">42 régimes <em>nationaux</em> répartis entre</div>
+    <div class="s-grid s-grid-2" style="margin-top:16px; gap:0;">
+      <!-- Colonne Base -->
+      <div style="border-right:2px solid rgba(184,148,95,0.2); padding-right:32px;">
+        <div style="text-align:center; margin-bottom:20px;">
+          <span style="display:inline-block; padding:6px 20px; background:var(--navy); color:var(--gold-light); font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; border-radius:100px;">Régimes de base</span>
+        </div>
+        <div style="font-size:14px; color:var(--slate); line-height:1.7; margin-bottom:20px;">
+          <p>Régime Général (CARSAT), régimes alignés (MSA, SSI), régimes spéciaux (SRE, CNRACL, CRP SNCF…), professions libérales (CIPAV, CARPIMKO, CNBF…)</p>
+        </div>
+        <div class="logos-bar" style="justify-content:center; gap:10px; padding:12px 0; border-top:1px solid rgba(0,0,0,0.06); border-bottom:1px solid rgba(0,0,0,0.06);">
+          <img src="assets/logos/Assurance retraite.png" alt="CARSAT" title="Régime Général (CARSAT)" style="height:26px;">
+          <img src="assets/logos/msa.png" alt="MSA" title="MSA" style="height:26px;">
+          <img src="assets/logos/retraite etat.png" alt="SRE" title="SRE" style="height:26px;">
+          <img src="assets/logos/cnracl.png" alt="CNRACL" title="CNRACL" style="height:26px;">
+          <img src="assets/logos/cpr.jpg" alt="CPR" title="CPR SNCF" style="height:26px;">
+          <img src="assets/logos/cipav.png" alt="CIPAV" title="CIPAV" style="height:26px;">
+          <img src="assets/logos/carpimmo.png" alt="CARPIMKO" title="CARPIMKO" style="height:26px;">
+          <img src="assets/logos/cnbf.png" alt="CNBF" title="CNBF" style="height:26px;">
+        </div>
+        <div style="margin-top:20px; padding:16px; background:rgba(26,39,68,0.04); border-radius:8px;">
+          <div style="font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); margin-bottom:8px;">Principe de calcul</div>
+          <p style="font-size:13px; color:var(--navy); line-height:1.7; margin:0;">Des <strong>trimestres acquis</strong> qui fixent un taux, appliqué à une moyenne de revenus. Cotisations <strong>plafonnées</strong> et mécanismes de lissage.</p>
         </div>
       </div>
-      <div class="info-card">
-        <h4>Régimes complémentaires</h4>
-        <p>Des <strong>cotisations déplafonnées</strong> qui attribuent des points en fonction des revenus.</p>
-        <p style="margin-top:8px; font-size:12px; opacity:0.7;">Points convertis en montant de pension</p>
-        <div class="logos-bar" style="margin-top:16px; justify-content:flex-start; gap:12px; padding:12px 0 0; border-top:1px solid rgba(0,0,0,0.06);">
-          <img src="assets/logos/agirrarrco.png" alt="AGIRC-ARRCO" title="AGIRC-ARRCO (salariés privé)" style="height:28px;">
-          <img src="assets/logos/ircantec.png" alt="IRCANTEC" title="IRCANTEC (contractuels publics)" style="height:28px;">
-          <img src="assets/logos/rafp.jpg" alt="RAFP" title="RAFP (fonctionnaires)" style="height:28px;">
+      <!-- Colonne Complémentaire -->
+      <div style="padding-left:32px;">
+        <div style="text-align:center; margin-bottom:20px;">
+          <span style="display:inline-block; padding:6px 20px; background:rgba(184,148,95,0.15); color:var(--gold); font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; border-radius:100px; border:1px solid rgba(184,148,95,0.2);">Régimes complémentaires</span>
+        </div>
+        <div style="font-size:14px; color:var(--slate); line-height:1.7; margin-bottom:20px;">
+          <p>AGIRC-ARRCO (salariés privé), IRCANTEC (contractuels publics), RAFP (fonctionnaires), régimes complémentaires des professions libérales…</p>
+        </div>
+        <div class="logos-bar" style="justify-content:center; gap:10px; padding:12px 0; border-top:1px solid rgba(0,0,0,0.06); border-bottom:1px solid rgba(0,0,0,0.06);">
+          <img src="assets/logos/agirrarrco.png" alt="AGIRC-ARRCO" title="AGIRC-ARRCO" style="height:26px;">
+          <img src="assets/logos/ircantec.png" alt="IRCANTEC" title="IRCANTEC" style="height:26px;">
+          <img src="assets/logos/rafp.jpg" alt="RAFP" title="RAFP" style="height:26px;">
+        </div>
+        <div style="margin-top:20px; padding:16px; background:rgba(184,148,95,0.06); border-radius:8px; border:1px solid rgba(184,148,95,0.1);">
+          <div style="font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); margin-bottom:8px;">Principe de calcul</div>
+          <p style="font-size:13px; color:var(--navy); line-height:1.7; margin:0;">Des <strong>cotisations déplafonnées</strong> qui attribuent des points en fonction de l'importance des revenus. Le nombre de points est converti en montant de pension.</p>
         </div>
       </div>
     </div>
