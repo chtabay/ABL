@@ -458,6 +458,59 @@ img { display: block; max-width: 100%; }
 @media(max-width:480px) { .footer { grid-template-columns: 1fr; } }
 
 /* ============================================================
+   LEGAL PAGES
+   ============================================================ */
+.legal-page { padding: 120px 40px 80px; max-width: 860px; margin: 0 auto; }
+.legal-page h1 {
+  font-family: var(--font-display); font-size: 40px; font-weight: 600;
+  color: var(--navy); margin-bottom: 8px;
+}
+.legal-page .legal-updated { font-size: 13px; color: var(--slate); margin-bottom: 40px; }
+.legal-page .legal-warning {
+  background: #fef9ee; border-left: 4px solid var(--gold); padding: 16px 20px;
+  border-radius: var(--radius-xs); font-size: 14px; color: var(--navy);
+  margin-bottom: 40px; line-height: 1.7;
+}
+.legal-page h2 {
+  font-family: var(--font-display); font-size: 26px; font-weight: 600;
+  color: var(--navy); margin: 48px 0 16px; padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.legal-page h3 {
+  font-size: 17px; font-weight: 700; color: var(--navy); margin: 32px 0 10px;
+}
+.legal-page p, .legal-page li {
+  font-size: 15px; color: var(--slate); line-height: 1.8; margin-bottom: 12px;
+}
+.legal-page ul { list-style: none; padding-left: 0; }
+.legal-page ul li { padding: 4px 0; display: flex; gap: 8px; align-items: flex-start; }
+.legal-page ul li::before { content: "•"; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+.legal-page strong { color: var(--navy); }
+.legal-page .legal-table {
+  width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 14px;
+}
+.legal-page .legal-table th {
+  background: var(--navy); color: var(--white); text-align: left; padding: 12px 16px;
+  font-weight: 600; font-size: 13px; letter-spacing: 0.03em;
+}
+.legal-page .legal-table td {
+  padding: 12px 16px; border-bottom: 1px solid rgba(0,0,0,0.06); color: var(--slate);
+}
+.legal-page .legal-table tr:nth-child(even) td { background: var(--warm-gray); }
+.legal-page a { color: var(--gold); text-decoration: underline; }
+.legal-page a:hover { color: var(--gold-light); }
+.legal-back {
+  display: inline-flex; align-items: center; gap: 6px; font-size: 14px;
+  color: var(--gold); font-weight: 600; cursor: pointer; margin-bottom: 24px;
+}
+.legal-back:hover { color: var(--gold-light); text-decoration: none; }
+@media(max-width:768px) {
+  .legal-page { padding: 100px 20px 60px; }
+  .legal-page h1 { font-size: 28px; }
+  .legal-page h2 { font-size: 22px; }
+}
+
+/* ============================================================
    PAGE ROUTING
    ============================================================ */
 .page { display: none; }
@@ -1406,6 +1459,274 @@ img { display: block; max-width: 100%; }
 </div>
 
 <!-- ================================================================
+     MENTIONS LÉGALES
+     ================================================================ -->
+<div id="mentions" class="page">
+  <div class="legal-page">
+    <a class="legal-back" onclick="nav('home')">← Retour à l'accueil</a>
+    <h1>Mentions légales</h1>
+    <p class="legal-updated">Dernière mise à jour : 28 mars 2026</p>
+
+    <h2>Éditeur du site</h2>
+    <p><strong>ABL — Conseil en retraite obligatoire</strong><br>
+    55 avenue Louis Breguet, Bâtiment Ariane, 3<sup>e</sup> étage<br>
+    31400 Toulouse<br>
+    Téléphone : 05 34 42 17 84<br>
+    Email : contact@abl-retraite.fr</p>
+    <p>SIRET : [à compléter]<br>
+    RCS Toulouse : [à compléter]<br>
+    N° TVA intracommunautaire : [à compléter]</p>
+    <p><strong>Directrice de la publication :</strong> [à compléter]</p>
+
+    <h2>Hébergeur</h2>
+    <p><strong>GitHub, Inc.</strong><br>
+    88 Colin P. Kelly Jr. Street<br>
+    San Francisco, CA 94107, États-Unis<br>
+    Site : <a href="https://github.com" target="_blank">github.com</a></p>
+
+    <h2>Propriété intellectuelle</h2>
+    <p>L'ensemble du contenu du site (textes, images, graphismes, logo, icônes, logiciels) est la propriété exclusive d'ABL ou de ses partenaires et est protégé par les lois françaises et internationales relatives à la propriété intellectuelle.</p>
+    <p>Toute reproduction, représentation, modification, publication ou exploitation, de quelque manière que ce soit, est strictement interdite sans autorisation écrite préalable.</p>
+
+    <h2>Responsabilité</h2>
+    <p>Les informations fournies sur ce site sont présentées à titre indicatif et général. Bien que nous nous efforcions de maintenir des informations à jour et exactes, nous ne garantissons pas leur exhaustivité ni leur exactitude.</p>
+    <p>Les simulations et estimations proposées via le simulateur en ligne sont <strong>purement indicatives</strong> et ne sauraient engager la responsabilité d'ABL. Seul un bilan personnalisé réalisé par nos conseillères peut déterminer vos droits réels.</p>
+
+    <h2>Liens hypertextes</h2>
+    <p>Le site peut contenir des liens vers d'autres sites internet. ABL n'exerce aucun contrôle sur ces sites et décline toute responsabilité quant à leur contenu.</p>
+
+    <h2>Crédits</h2>
+    <p>Design et développement : ABL<br>
+    Photographies : droits réservés</p>
+  </div>
+</div>
+
+<!-- ================================================================
+     CONDITIONS GÉNÉRALES DE VENTE
+     ================================================================ -->
+<div id="cgv" class="page">
+  <div class="legal-page">
+    <a class="legal-back" onclick="nav('home')">← Retour à l'accueil</a>
+    <h1>Conditions Générales de Vente</h1>
+    <p class="legal-updated">Dernière mise à jour : 28 mars 2026</p>
+    <div class="legal-warning">
+      Les présentes CGV régissent les relations contractuelles entre ABL et ses clients. Toute prestation implique l'acceptation sans réserve des présentes conditions.
+    </div>
+
+    <h2>Article 1 — Objet</h2>
+    <p>Les présentes Conditions Générales de Vente régissent les relations contractuelles entre :</p>
+    <p><strong>Le Prestataire :</strong> ABL — Conseil en retraite obligatoire<br>
+    55 avenue Louis Breguet, 31400 Toulouse<br>
+    SIRET : [à compléter]</p>
+    <p>Et <strong>le Client</strong>, toute personne physique ou morale souscrivant à une prestation d'ABL.</p>
+
+    <h2>Article 2 — Prestations</h2>
+    <p>ABL propose des prestations de conseil en droits de retraite obligatoire :</p>
+    <ul>
+      <li><strong>Diagnostic retraite</strong> — Analyse du relevé de carrière, détection des anomalies, estimation de la pension, rapport synthétique et RDV de restitution.</li>
+      <li><strong>Bilan Complet</strong> — Reconstitution exhaustive de carrière, correction des erreurs, étude de rachat de trimestres, simulations, rapport détaillé et suivi.</li>
+      <li><strong>Sérénité</strong> — Accompagnement intégral incluant le Bilan Complet et la liquidation des droits auprès de toutes les caisses.</li>
+      <li><strong>Urgence</strong> — Diagnostic et reprise en main d'un dossier de retraite en difficulté.</li>
+      <li><strong>Formations et webinaires</strong> — Prestations de sensibilisation et de formation à destination des entreprises.</li>
+    </ul>
+    <p>ABL ne propose <strong>aucun produit financier, aucun placement, ni aucun produit d'épargne retraite</strong>. Les prestations portent exclusivement sur les régimes obligatoires.</p>
+
+    <h2>Article 3 — Tarifs</h2>
+    <p>Les tarifs en vigueur sont communiqués sur le site et lors de l'établissement du devis. Ils sont exprimés en euros TTC pour les particuliers et en euros HT pour les entreprises.</p>
+    <p>Les tarifs « à partir de » sont indicatifs. Le tarif définitif est précisé dans le devis personnalisé adressé au Client.</p>
+    <p>ABL se réserve le droit de modifier ses tarifs à tout moment. Les prestations en cours ne sont pas affectées par une modification tarifaire.</p>
+
+    <h2>Article 4 — Devis et commande</h2>
+    <p>Toute prestation fait l'objet d'un devis préalable, adressé par email. Le devis est valable <strong>30 jours</strong> à compter de sa date d'émission.</p>
+    <p>La commande est considérée comme ferme et définitive à la réception :</p>
+    <ul>
+      <li>Du devis signé par le Client (signature manuscrite ou électronique)</li>
+      <li>Du règlement de l'acompte ou du premier versement, le cas échéant</li>
+    </ul>
+
+    <h2>Article 5 — Modalités de paiement</h2>
+    <p>Le paiement s'effectue par virement bancaire ou par carte bancaire.</p>
+    <table class="legal-table">
+      <thead><tr><th>Montant</th><th>Modalité</th></tr></thead>
+      <tbody>
+        <tr><td>Inférieur à 1 500 €</td><td>Paiement intégral à la commande</td></tr>
+        <tr><td>Supérieur à 1 500 €</td><td>Paiement en 2× sans frais (50% commande, 50% rapport) ou 3× sur demande</td></tr>
+        <tr><td>Prestations entreprise</td><td>Paiement à 30 jours date de facture</td></tr>
+      </tbody>
+    </table>
+    <p>Tout retard de paiement entraîne de plein droit l'application de pénalités au taux de 3 fois le taux d'intérêt légal, ainsi qu'une indemnité forfaitaire de 40 € pour frais de recouvrement (articles L.441-10 et D.441-5 du Code de commerce).</p>
+
+    <h2>Article 6 — Délais d'exécution</h2>
+    <table class="legal-table">
+      <thead><tr><th>Prestation</th><th>Délai indicatif</th></tr></thead>
+      <tbody>
+        <tr><td>Diagnostic</td><td>2 à 3 semaines</td></tr>
+        <tr><td>Bilan Complet</td><td>4 à 8 semaines</td></tr>
+        <tr><td>Sérénité</td><td>9 à 12 mois</td></tr>
+        <tr><td>Urgence</td><td>Variable selon complexité</td></tr>
+      </tbody>
+    </table>
+    <p>Ces délais courent à compter de la réception de l'intégralité des documents nécessaires. Des délais supplémentaires imputables à des tiers (caisses, organismes) ne sauraient engager la responsabilité d'ABL.</p>
+
+    <h2>Article 7 — Obligations du Client</h2>
+    <ul>
+      <li>Fournir des informations exactes et complètes</li>
+      <li>Transmettre les documents nécessaires dans les délais convenus</li>
+      <li>Informer ABL de tout changement de situation pouvant affecter le dossier</li>
+      <li>Régler les sommes dues dans les délais prévus</li>
+    </ul>
+
+    <h2>Article 8 — Obligations d'ABL</h2>
+    <ul>
+      <li>Traiter le dossier du Client avec diligence et professionnalisme</li>
+      <li>Fournir les livrables décrits dans le devis</li>
+      <li>Respecter la confidentialité des informations communiquées</li>
+      <li>Informer le Client de l'avancement de son dossier</li>
+    </ul>
+    <p>Les obligations d'ABL constituent des <strong>obligations de moyens</strong> et non de résultat. ABL ne garantit pas un montant de pension spécifique ni l'aboutissement favorable de l'ensemble des démarches auprès des organismes tiers.</p>
+
+    <h2>Article 9 — Droit de rétractation</h2>
+    <p>Conformément aux articles L.221-18 et suivants du Code de la consommation, le Client particulier dispose d'un droit de rétractation de <strong>14 jours</strong> à compter de la signature du devis, sans avoir à justifier de motifs ni à payer de pénalités.</p>
+    <p>Si le Client demande expressément le commencement de l'exécution avant l'expiration du délai, il devra à ABL un montant proportionnel au service fourni.</p>
+    <p>Pour exercer ce droit : <a href="mailto:contact@abl-retraite.fr">contact@abl-retraite.fr</a> ou courrier au siège social.</p>
+
+    <h2>Article 10 — Résiliation</h2>
+    <p>En cas de manquement par l'une des parties, l'autre pourra résilier le contrat après mise en demeure restée infructueuse pendant 15 jours.</p>
+    <p>En cas de résiliation en cours de prestation :</p>
+    <ul>
+      <li>Les travaux déjà réalisés seront facturés au prorata</li>
+      <li>Les documents du Client seront restitués</li>
+      <li>L'acompte versé restera acquis au prorata des travaux réalisés</li>
+    </ul>
+
+    <h2>Article 11 — Confidentialité</h2>
+    <p>ABL s'engage à traiter avec la plus stricte confidentialité l'ensemble des informations et documents communiqués par le Client. Cette obligation persiste après la fin de la relation contractuelle.</p>
+
+    <h2>Article 12 — Protection des données</h2>
+    <p>Le traitement des données personnelles est réalisé conformément au RGPD et à la loi Informatique et Libertés. Les modalités sont détaillées dans notre <a href="#" onclick="nav('confidentialite');return false;">Politique de confidentialité</a>.</p>
+
+    <h2>Article 13 — Réclamations et médiation</h2>
+    <p>Toute réclamation : <a href="mailto:contact@abl-retraite.fr">contact@abl-retraite.fr</a> ou courrier au siège social.</p>
+    <p>En cas de litige non résolu, le Client peut recourir gratuitement au médiateur de la consommation :<br>
+    [Nom et coordonnées du médiateur — à compléter]</p>
+
+    <h2>Article 14 — Droit applicable</h2>
+    <p>Les présentes CGV sont soumises au droit français. En cas de litige, les parties s'efforceront de trouver une solution amiable. À défaut, les tribunaux compétents de Toulouse seront seuls compétents.</p>
+  </div>
+</div>
+
+<!-- ================================================================
+     POLITIQUE DE CONFIDENTIALITÉ
+     ================================================================ -->
+<div id="confidentialite" class="page">
+  <div class="legal-page">
+    <a class="legal-back" onclick="nav('home')">← Retour à l'accueil</a>
+    <h1>Politique de confidentialité</h1>
+    <p class="legal-updated">Dernière mise à jour : 28 mars 2026</p>
+
+    <h2>Responsable du traitement</h2>
+    <p><strong>ABL — Conseil en retraite obligatoire</strong><br>
+    55 avenue Louis Breguet, 31400 Toulouse<br>
+    Email : <a href="mailto:contact@abl-retraite.fr">contact@abl-retraite.fr</a><br>
+    Téléphone : 05 34 42 17 84</p>
+
+    <h2>Données collectées</h2>
+
+    <h3>Via le site web</h3>
+    <ul>
+      <li><strong>Données d'identification</strong> (nom, prénom, email, téléphone) via les formulaires de contact et de prise de rendez-vous</li>
+      <li><strong>Données de simulation</strong> (date de naissance, statut, revenus) via le simulateur en ligne — ces données sont traitées localement dans votre navigateur et ne sont <strong>jamais transmises à nos serveurs</strong></li>
+      <li><strong>Données du RIS</strong> (relevé individuel de situation) — le fichier PDF est analysé <strong>entièrement côté client</strong> (dans votre navigateur), aucune donnée n'est envoyée ni stockée sur nos serveurs</li>
+      <li><strong>Données de navigation</strong> (cookies, adresse IP) — voir section Cookies</li>
+    </ul>
+
+    <h3>Dans le cadre des prestations</h3>
+    <ul>
+      <li>Données d'identification (nom, prénom, date de naissance, numéro de sécurité sociale, adresse)</li>
+      <li>Données professionnelles (bulletins de paie, attestations, relevés de carrière)</li>
+      <li>Données financières (revenus, cotisations)</li>
+      <li>Données de facturation (coordonnées bancaires pour le paiement)</li>
+    </ul>
+
+    <h2>Finalités et bases légales</h2>
+    <table class="legal-table">
+      <thead><tr><th>Finalité</th><th>Base légale</th></tr></thead>
+      <tbody>
+        <tr><td>Exécution des prestations de conseil</td><td>Exécution du contrat</td></tr>
+        <tr><td>Gestion de la relation client</td><td>Intérêt légitime</td></tr>
+        <tr><td>Prospection commerciale</td><td>Consentement</td></tr>
+        <tr><td>Envoi de newsletters et actualités</td><td>Consentement</td></tr>
+        <tr><td>Amélioration du site et des services</td><td>Intérêt légitime</td></tr>
+        <tr><td>Respect des obligations légales</td><td>Obligation légale</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Durée de conservation</h2>
+    <table class="legal-table">
+      <thead><tr><th>Type de données</th><th>Durée</th></tr></thead>
+      <tbody>
+        <tr><td>Données clients (prestations)</td><td>5 ans après la fin de la prestation</td></tr>
+        <tr><td>Données de prospection</td><td>3 ans après le dernier contact</td></tr>
+        <tr><td>Données de facturation</td><td>10 ans (obligation légale comptable)</td></tr>
+        <tr><td>Données du simulateur</td><td>Non conservées (traitement local uniquement)</td></tr>
+        <tr><td>Cookies de navigation</td><td>13 mois maximum</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Destinataires des données</h2>
+    <p>Les données personnelles sont traitées par :</p>
+    <ul>
+      <li>L'équipe ABL (conseillères, direction)</li>
+      <li>Les sous-traitants techniques (hébergeur, outils CRM et email)</li>
+    </ul>
+    <p>Les données ne sont <strong>jamais vendues à des tiers</strong>. Elles ne sont transmises à des organismes de retraite qu'avec l'accord explicite du Client, dans le cadre de l'exécution de la prestation.</p>
+
+    <h2>Transfert de données</h2>
+    <p>Les données sont hébergées en France ou dans l'Union Européenne. En cas de recours à des sous-traitants hors UE, des garanties appropriées sont mises en place (clauses contractuelles types de la Commission européenne).</p>
+
+    <h2>Vos droits</h2>
+    <p>Conformément au RGPD, vous disposez des droits suivants :</p>
+    <ul>
+      <li><strong>Droit d'accès</strong> — obtenir une copie de vos données</li>
+      <li><strong>Droit de rectification</strong> — corriger vos données inexactes</li>
+      <li><strong>Droit d'effacement</strong> — demander la suppression de vos données</li>
+      <li><strong>Droit à la limitation</strong> — limiter le traitement de vos données</li>
+      <li><strong>Droit à la portabilité</strong> — recevoir vos données dans un format structuré</li>
+      <li><strong>Droit d'opposition</strong> — vous opposer au traitement de vos données</li>
+      <li><strong>Droit de retirer votre consentement</strong> à tout moment</li>
+    </ul>
+    <p>Pour exercer ces droits : <a href="mailto:contact@abl-retraite.fr">contact@abl-retraite.fr</a> ou courrier au siège social.</p>
+    <p>En cas de difficulté, vous pouvez saisir la CNIL : <a href="https://www.cnil.fr" target="_blank">www.cnil.fr</a></p>
+
+    <h2>Cookies</h2>
+    <table class="legal-table">
+      <thead><tr><th>Type</th><th>Finalité</th><th>Consentement</th></tr></thead>
+      <tbody>
+        <tr><td>Strictement nécessaires</td><td>Fonctionnement du site, préférences</td><td>Non requis</td></tr>
+        <tr><td>Analytiques</td><td>Mesure d'audience</td><td>Oui</td></tr>
+        <tr><td>Marketing</td><td>Suivi des campagnes publicitaires</td><td>Oui</td></tr>
+      </tbody>
+    </table>
+    <p>Vous pouvez gérer vos préférences de cookies à tout moment via le bandeau de consentement accessible sur le site.</p>
+
+    <h2>Sécurité</h2>
+    <p>ABL met en œuvre des mesures techniques et organisationnelles appropriées pour protéger vos données :</p>
+    <ul>
+      <li>Chiffrement des données en transit (HTTPS/TLS)</li>
+      <li>Accès restreint aux données (authentification, droits d'accès)</li>
+      <li>Sauvegardes régulières</li>
+      <li>Sensibilisation de l'équipe à la protection des données</li>
+    </ul>
+
+    <h2>Traitement local des données du simulateur et du RIS</h2>
+    <p>Le simulateur de retraite et l'outil d'analyse de Relevé Individuel de Situation (RIS) fonctionnent <strong>entièrement dans votre navigateur</strong>. Aucun fichier PDF, aucune donnée de carrière, aucune donnée personnelle issue de ces outils n'est transmise à nos serveurs. Le traitement s'effectue localement et les données ne quittent jamais votre appareil.</p>
+
+    <h2>Modification de la politique</h2>
+    <p>La présente politique peut être modifiée à tout moment. La version en vigueur est celle accessible sur le site.</p>
+  </div>
+</div>
+
+<!-- ================================================================
      FOOTER (shared)
      ================================================================ -->
 <footer>
@@ -1443,7 +1764,7 @@ img { display: block; max-width: 100%; }
     </div>
   </div>
   <div class="footer-bottom">
-    © 2026 ABL — Expert retraite obligatoire · <a href="#">Mentions légales</a> · <a href="#">CGV</a> · <a href="#">Confidentialité</a>
+    © 2026 ABL — Expert retraite obligatoire · <a href="#" onclick="nav('mentions');return false;">Mentions légales</a> · <a href="#" onclick="nav('cgv');return false;">CGV</a> · <a href="#" onclick="nav('confidentialite');return false;">Confidentialité</a>
   </div>
 </footer>
 
