@@ -293,10 +293,11 @@ a { color: inherit; text-decoration: none; }
 .q-list { display: flex; flex-direction: column; gap: 12px; }
 .q-item {
   display: flex; gap: 16px; align-items: flex-start;
-  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(15,23,41,0.8); border: 1px solid rgba(255,255,255,0.1);
   border-radius: var(--radius-sm); padding: 18px 20px; transition: all 0.2s;
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
 }
-.q-item:hover { background: rgba(255,255,255,0.07); }
+.q-item:hover { background: rgba(15,23,41,0.9); border-color: rgba(184,148,95,0.3); }
 .q-icon {
   width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
@@ -319,7 +320,8 @@ a { color: inherit; text-decoration: none; }
   font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.7;
   padding: 4px 0; list-style: none; display: flex; gap: 8px;
 }
-.expertise-box li::before { content: "→"; color: var(--gold); flex-shrink: 0; }
+.expertise-box li::before { content: "→"; color: var(--gold); flex-shrink: 0; font-weight: 700; }
+.slide-light .expertise-box li { color: var(--navy); }
 
 /* ============================================================
    KNOWLEDGE BOX
@@ -388,7 +390,14 @@ a { color: inherit; text-decoration: none; }
 .accroche-word:hover { background: rgba(255,255,255,0.07); transform: scale(1.03); }
 .accroche-word .icon { font-size: 32px; margin-bottom: 12px; display: block; }
 .accroche-word h3 {
-  font-family: var(--font-display); font-size: 28px; font-weight: 600;
+  font-family: var(--font-body); font-size: 24px; font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.accroche-word .picto-placeholder {
+  width: 64px; height: 64px; border-radius: 50%; margin: 0 auto 12px;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, rgba(184,148,95,0.15) 0%, rgba(184,148,95,0.05) 100%);
+  border: 1px solid rgba(184,148,95,0.2); font-size: 28px;
 }
 
 /* ============================================================
@@ -545,10 +554,10 @@ a { color: inherit; text-decoration: none; }
   <div class="s-content s-center">
     <div class="s-label">La retraite en France, un sujet…</div>
     <div class="accroche-grid">
-      <div class="accroche-word"><span class="icon">🌍</span><h3>Universel</h3></div>
-      <div class="accroche-word"><span class="icon">👤</span><h3>Personnel</h3></div>
-      <div class="accroche-word"><span class="icon">🌫️</span><h3>Nébuleux</h3></div>
-      <div class="accroche-word"><span class="icon">⚙️</span><h3>Technique</h3></div>
+      <div class="accroche-word"><div class="picto-placeholder">🌍</div><h3>Universel</h3></div>
+      <div class="accroche-word"><div class="picto-placeholder">👤</div><h3>Personnel</h3></div>
+      <div class="accroche-word"><div class="picto-placeholder">🌫️</div><h3>Nébuleux</h3></div>
+      <div class="accroche-word"><div class="picto-placeholder">⚙️</div><h3>Technique</h3></div>
     </div>
   </div>
 </div>
@@ -637,27 +646,28 @@ a { color: inherit; text-decoration: none; }
       <div class="info-card">
         <h4>Régimes de base</h4>
         <p>Des <strong>trimestres acquis</strong> qui fixent un taux, appliqué à une moyenne de revenus.</p>
-        <p style="margin-top:12px; font-size:12px; opacity:0.7;">Cotisations plafonnées · Mécanismes de lissage</p>
+        <p style="margin-top:8px; font-size:12px; opacity:0.7;">Cotisations plafonnées · Mécanismes de lissage</p>
+        <div class="logos-bar" style="margin-top:16px; justify-content:flex-start; gap:12px; padding:12px 0 0; border-top:1px solid rgba(0,0,0,0.06);">
+          <img src="assets/logos/Assurance retraite.png" alt="CARSAT" title="Régime Général (CARSAT)" style="height:28px;">
+          <img src="assets/logos/msa.png" alt="MSA" title="MSA (agricole)" style="height:28px;">
+          <img src="assets/logos/retraite etat.png" alt="SRE" title="SRE — Retraites de l'État" style="height:28px;">
+          <img src="assets/logos/cnracl.png" alt="CNRACL" title="CNRACL (territoriaux)" style="height:28px;">
+          <img src="assets/logos/cpr.jpg" alt="CPR" title="CPR SNCF" style="height:28px;">
+          <img src="assets/logos/cipav.png" alt="CIPAV" title="CIPAV (libéraux)" style="height:28px;">
+          <img src="assets/logos/carpimmo.png" alt="CARPIMKO" title="CARPIMKO (auxiliaires médicaux)" style="height:28px;">
+          <img src="assets/logos/cnbf.png" alt="CNBF" title="CNBF (avocats)" style="height:28px;">
+        </div>
       </div>
       <div class="info-card">
         <h4>Régimes complémentaires</h4>
         <p>Des <strong>cotisations déplafonnées</strong> qui attribuent des points en fonction des revenus.</p>
-        <p style="margin-top:12px; font-size:12px; opacity:0.7;">Points convertis en montant de pension</p>
+        <p style="margin-top:8px; font-size:12px; opacity:0.7;">Points convertis en montant de pension</p>
+        <div class="logos-bar" style="margin-top:16px; justify-content:flex-start; gap:12px; padding:12px 0 0; border-top:1px solid rgba(0,0,0,0.06);">
+          <img src="assets/logos/agirrarrco.png" alt="AGIRC-ARRCO" title="AGIRC-ARRCO (salariés privé)" style="height:28px;">
+          <img src="assets/logos/ircantec.png" alt="IRCANTEC" title="IRCANTEC (contractuels publics)" style="height:28px;">
+          <img src="assets/logos/rafp.jpg" alt="RAFP" title="RAFP (fonctionnaires)" style="height:28px;">
+        </div>
       </div>
-    </div>
-    <div class="logos-bar" style="margin-top:32px;">
-      <img src="assets/logos/Assurance retraite.png" alt="L'Assurance Retraite" title="L'Assurance Retraite (CARSAT)">
-      <img src="assets/logos/msa.png" alt="MSA" title="MSA">
-      <img src="assets/logos/retraite etat.png" alt="Retraites de l'État" title="SRE — Retraites de l'État">
-      <img src="assets/logos/cnracl.png" alt="CNRACL" title="CNRACL">
-      <img src="assets/logos/cpr.jpg" alt="CPR SNCF" title="CPR SNCF">
-      <img src="assets/logos/cipav.png" alt="CIPAV" title="CIPAV">
-      <img src="assets/logos/carpimmo.png" alt="CARPIMKO" title="CARPIMKO">
-      <img src="assets/logos/cnbf.png" alt="CNBF" title="CNBF">
-      <div class="logos-divider" style="background:rgba(0,0,0,0.1);"></div>
-      <img src="assets/logos/agirrarrco.png" alt="AGIRC-ARRCO" title="AGIRC-ARRCO">
-      <img src="assets/logos/ircantec.png" alt="IRCANTEC" title="IRCANTEC">
-      <img src="assets/logos/rafp.jpg" alt="RAFP" title="RAFP">
     </div>
   </div>
 </div>
@@ -791,19 +801,19 @@ a { color: inherit; text-decoration: none; }
 <!-- ============================================================
      SLIDE 9 — RECONSTITUTION DE CARRIÈRE
      ============================================================ -->
-<div class="slide slide-light" data-slide="8">
+<div class="slide slide-light" data-slide="8" style="padding-bottom:100px;">
   <div class="s-content">
     <div class="s-grid s-grid-2" style="align-items:start;">
       <div>
         <div class="s-label">Étape 1</div>
         <div class="s-title">Reconstitution de <em>carrière</em></div>
-        <div class="s-subtitle">Comparaison entre les droits enregistrés et la réalité des droits acquis. Reconstitution intégrale ou partielle de la carrière.</div>
-        <div class="expertise-box" style="background:rgba(184,148,95,0.06); border-color:rgba(184,148,95,0.15);">
+        <div class="s-subtitle">Comparaison entre les droits enregistrés et la réalité des droits acquis.</div>
+        <div class="expertise-box" style="background:rgba(26,39,68,0.06); border:1px solid rgba(26,39,68,0.12); border-left:4px solid var(--gold);">
           <h4 style="color:var(--gold);">L'expertise ABL</h4>
           <ul style="list-style:none; padding:0;">
-            <li>Maîtrise de la législation, des barèmes et des spécificités des régimes</li>
-            <li>Capacité à déceler erreurs et manquants, analyse des justificatifs</li>
-            <li>Connaissance des subtilités et enquêtes à formuler auprès des caisses</li>
+            <li style="color:var(--navy);">Maîtrise de la législation, des barèmes et des spécificités des régimes</li>
+            <li style="color:var(--navy);">Capacité à déceler erreurs et manquants, analyse des justificatifs</li>
+            <li style="color:var(--navy);">Connaissance des subtilités et enquêtes à formuler auprès des caisses</li>
           </ul>
         </div>
       </div>
@@ -883,7 +893,7 @@ a { color: inherit; text-decoration: none; }
 <!-- ============================================================
      SLIDE 12 — LIQUIDATION
      ============================================================ -->
-<div class="slide slide-dark" data-slide="11">
+<div class="slide slide-dark" data-slide="11" style="padding-bottom:100px;">
   <div class="s-content">
     <div class="s-grid s-grid-2" style="align-items:center;">
       <div>
@@ -915,9 +925,9 @@ a { color: inherit; text-decoration: none; }
 <!-- ============================================================
      SLIDE 13 — CLOSING
      ============================================================ -->
-<div class="slide slide-dark" data-slide="12">
+<div class="slide slide-dark" data-slide="12" style="padding-bottom:100px;">
   <div class="slide-bg-img overlay-bottom" style="background-image:url('assets/horizon-lavande.webp'); background-position: center 30%;"></div>
-  <div class="s-content s-center" style="margin-top: auto;">
+  <div class="s-content s-center">
     <div class="s-label">Notre engagement</div>
     <div class="closing-words">
       <div class="closing-word">
