@@ -929,18 +929,30 @@ function goSlide(index) {
   animating = true;
 
   const goingForward = index > current;
-  slides[current].classList.remove('active');
-  if (goingForward) slides[current].classList.add('prev');
+  const oldSlide = slides[current];
+  const newSlide = slides[index];
 
+  oldSlide.classList.remove('active');
+  if (goingForward) {
+    oldSlide.classList.add('prev');
+  }
+
+  if (!goingForward) {
+    newSlide.style.transition = 'none';
+    newSlide.classList.add('prev');
+    newSlide.offsetHeight;
+    newSlide.style.transition = '';
+  }
+
+  newSlide.classList.remove('prev');
+  newSlide.classList.add('active');
   current = index;
-  slides[current].classList.remove('prev');
-  slides[current].classList.add('active');
 
   updateNav();
   animateSlideContent(current);
 
   setTimeout(() => {
-    slides.forEach((s, i) => { if (i !== current) s.classList.remove('prev'); });
+    slides.forEach((s, i) => { if (i !== current) s.classList.remove('prev', 'active'); });
     animating = false;
   }, 550);
 }
