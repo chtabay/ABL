@@ -928,9 +928,9 @@ function goSlide(index) {
   if (animating || index === current || index < 0 || index >= totalSlides) return;
   animating = true;
 
-  const direction = index > current ? 'next' : 'prev';
+  const goingForward = index > current;
   slides[current].classList.remove('active');
-  slides[current].classList.add(direction === 'next' ? 'prev' : '');
+  if (goingForward) slides[current].classList.add('prev');
 
   current = index;
   slides[current].classList.remove('prev');
