@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABL — Présentation 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1a2744;
+  --navy-deep: #0f1729;
+  --navy-mid: #243352;
+  --navy-light: #2e4066;
+  --gold: #b8945f;
+  --gold-light: #d4b683;
+  --gold-pale: #f0e6d3;
+  --slate: #6b7280;
+  --slate-light: #9ca3af;
+  --white: #ffffff;
+  --off-white: #faf9f7;
+  --warm-gray: #f3f1ed;
+  --green: #34d399;
+  --green-dark: #059669;
+  --red-soft: #ef4444;
+  --radius: 14px;
+  --radius-sm: 8px;
+  --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
+  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body); color: var(--white);
+  background: var(--navy-deep); overflow: hidden;
+  -webkit-font-smoothing: antialiased; height: 100vh;
+}
+a { color: inherit; text-decoration: none; }
+
+/* ============================================================
+   SLIDE ENGINE
+   ============================================================ */
+.deck { position: relative; width: 100vw; height: 100vh; }
+.slide {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  justify-content: center; padding: 80px;
+  opacity: 0; transform: translateX(60px); pointer-events: none;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.slide.active {
+  opacity: 1; transform: translateX(0); pointer-events: auto;
+}
+.slide.prev {
+  opacity: 0; transform: translateX(-60px);
+}
+
+/* Slide variants */
+.slide-dark {
+  background: linear-gradient(160deg, var(--navy-deep) 0%, var(--navy) 40%, var(--navy-mid) 100%);
+}
+.slide-light {
+  background: var(--off-white); color: var(--navy);
+}
+.slide-accent {
+  background: linear-gradient(135deg, var(--navy) 0%, #1e3a5f 100%);
+}
+
+/* Decorative orbs */
+.slide-dark::before, .slide-accent::before {
+  content: ''; position: absolute; top: -150px; right: -150px;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(184,148,95,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+.slide-dark::after, .slide-accent::after {
+  content: ''; position: absolute; bottom: -100px; left: -100px;
+  width: 400px; height: 400px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(52,211,153,0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+.nav-bar {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 40px;
+  background: rgba(15,23,41,0.85); backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.nav-dots { display: flex; gap: 8px; }
+.nav-dot {
+  width: 10px; height: 10px; border-radius: 50%; border: none;
+  background: rgba(255,255,255,0.2); cursor: pointer; transition: all 0.2s;
+  padding: 0;
+}
+.nav-dot.active { background: var(--gold); transform: scale(1.3); }
+.nav-dot:hover { background: rgba(255,255,255,0.4); }
+.nav-arrows { display: flex; gap: 8px; }
+.nav-arrow {
+  width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.2);
+  background: transparent; color: var(--white); font-size: 18px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+}
+.nav-arrow:hover { border-color: var(--gold); color: var(--gold); background: rgba(184,148,95,0.1); }
+.nav-arrow:disabled { opacity: 0.3; cursor: default; }
+.nav-arrow:disabled:hover { border-color: rgba(255,255,255,0.2); color: var(--white); background: transparent; }
+.nav-counter {
+  font-size: 13px; color: var(--slate-light); font-variant-numeric: tabular-nums;
+}
+.nav-brand {
+  font-family: var(--font-display); font-size: 18px; color: rgba(255,255,255,0.5);
+}
+.nav-brand em { font-style: normal; color: var(--gold); }
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+.s-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+}
+.slide-light .s-label { color: var(--gold); }
+.s-title {
+  font-family: var(--font-display); font-size: 52px; font-weight: 600;
+  line-height: 1.1; margin-bottom: 20px;
+}
+.s-title em { font-style: normal; color: var(--gold); }
+.slide-light .s-title { color: var(--navy); }
+.s-subtitle {
+  font-size: 18px; color: rgba(255,255,255,0.7); line-height: 1.7;
+  max-width: 640px;
+}
+.slide-light .s-subtitle { color: var(--slate); }
+.s-text {
+  font-size: 15px; line-height: 1.8; color: rgba(255,255,255,0.75);
+  max-width: 700px;
+}
+.slide-light .s-text { color: var(--slate); }
+
+/* ============================================================
+   LAYOUT HELPERS
+   ============================================================ */
+.s-grid { display: grid; gap: 32px; position: relative; z-index: 2; }
+.s-grid-2 { grid-template-columns: 1fr 1fr; }
+.s-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+.s-grid-4 { grid-template-columns: repeat(4, 1fr); }
+.s-center { text-align: center; align-items: center; }
+.s-content { position: relative; z-index: 2; max-width: 1100px; margin: 0 auto; width: 100%; }
+
+/* ============================================================
+   STAT CARDS
+   ============================================================ */
+.stat-card {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius); padding: 24px; text-align: center;
+  transition: all 0.3s;
+}
+.stat-card:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+.stat-value {
+  font-family: var(--font-display); font-size: 36px; font-weight: 700;
+  color: var(--gold); margin-bottom: 4px;
+}
+.stat-label { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+.stat-card.highlight { border-color: var(--gold); background: rgba(184,148,95,0.08); }
+.stat-card.highlight .stat-value { color: var(--red-soft); }
+
+/* Light variant */
+.slide-light .stat-card { background: var(--white); border-color: rgba(0,0,0,0.06); }
+.slide-light .stat-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
+.slide-light .stat-label { color: var(--slate); }
+
+/* ============================================================
+   PILLAR DIAGRAM
+   ============================================================ */
+.pillar-diagram { display: grid; grid-template-columns: 1.2fr 1fr 0.8fr; gap: 16px; align-items: end; }
+.pillar {
+  border-radius: var(--radius); padding: 28px 24px; text-align: center;
+  position: relative; transition: all 0.3s;
+}
+.pillar:hover { transform: translateY(-3px); }
+.pillar-1 {
+  background: linear-gradient(180deg, var(--navy-light) 0%, var(--navy) 100%);
+  border: 1px solid rgba(255,255,255,0.1); min-height: 280px;
+}
+.pillar-2 {
+  background: linear-gradient(180deg, rgba(184,148,95,0.2) 0%, rgba(184,148,95,0.08) 100%);
+  border: 1px solid rgba(184,148,95,0.2); min-height: 220px;
+}
+.pillar-3 {
+  background: rgba(255,255,255,0.04); border: 1px dashed rgba(255,255,255,0.15);
+  min-height: 160px;
+}
+.pillar-tag {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 100px; margin-bottom: 14px; display: inline-block;
+}
+.pillar-1 .pillar-tag { background: var(--gold); color: var(--navy); }
+.pillar-2 .pillar-tag { background: rgba(184,148,95,0.3); color: var(--gold-light); }
+.pillar-3 .pillar-tag { background: rgba(255,255,255,0.1); color: var(--slate-light); }
+.pillar h3 { font-family: var(--font-display); font-size: 20px; margin-bottom: 12px; }
+.pillar p { font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.6; }
+.pillar-footer {
+  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35); margin-top: 16px; padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+/* ============================================================
+   BAR CHART (errors)
+   ============================================================ */
+.chart-container { display: flex; align-items: flex-end; gap: 16px; height: 220px; padding-top: 20px; }
+.chart-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end; }
+.chart-bar {
+  width: 100%; border-radius: 6px 6px 0 0; transition: height 1s ease;
+  position: relative; min-width: 40px;
+}
+.chart-bar-value {
+  position: absolute; top: -24px; left: 50%; transform: translateX(-50%);
+  font-size: 13px; font-weight: 700; white-space: nowrap;
+}
+.chart-bar-label { font-size: 12px; color: rgba(255,255,255,0.5); }
+.chart-bar.bar-normal { background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%); }
+.chart-bar.bar-normal .chart-bar-value { color: var(--gold-light); }
+.chart-bar.bar-danger { background: linear-gradient(180deg, #f87171 0%, #ef4444 100%); }
+.chart-bar.bar-danger .chart-bar-value { color: #fca5a5; }
+
+/* ============================================================
+   STEP TIMELINE
+   ============================================================ */
+.timeline { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; position: relative; }
+.timeline::before {
+  content: ''; position: absolute; top: 32px; left: 10%; right: 10%;
+  height: 2px; background: linear-gradient(90deg, var(--gold), rgba(184,148,95,0.3));
+}
+.timeline-step { text-align: center; position: relative; z-index: 1; padding: 0 20px; }
+.timeline-num {
+  width: 64px; height: 64px; border-radius: 50%; display: flex;
+  align-items: center; justify-content: center; margin: 0 auto 16px;
+  font-family: var(--font-display); font-size: 24px; font-weight: 700;
+  transition: all 0.3s;
+}
+.timeline-step:nth-child(1) .timeline-num {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+  color: var(--navy); box-shadow: 0 4px 20px rgba(184,148,95,0.4);
+}
+.timeline-step:nth-child(2) .timeline-num {
+  background: rgba(184,148,95,0.15); border: 2px solid var(--gold);
+  color: var(--gold);
+}
+.timeline-step:nth-child(3) .timeline-num {
+  background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.7);
+}
+.timeline-step h3 {
+  font-family: var(--font-display); font-size: 22px; font-weight: 600; margin-bottom: 8px;
+}
+.timeline-step p { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.6; }
+
+/* Active variant */
+.timeline-step.step-active .timeline-num {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%) !important;
+  color: var(--navy) !important; border: none !important;
+  box-shadow: 0 4px 20px rgba(184,148,95,0.4) !important;
+}
+
+/* ============================================================
+   INFO CARDS
+   ============================================================ */
+.info-card {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius); padding: 28px; transition: all 0.3s;
+}
+.info-card:hover { background: rgba(255,255,255,0.08); }
+.info-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 10px; color: var(--white); }
+.info-card p { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.7; }
+.info-card .icon { font-size: 28px; margin-bottom: 12px; display: block; }
+.info-card-gold { border-color: rgba(184,148,95,0.2); background: rgba(184,148,95,0.06); }
+.info-card-gold h4 { color: var(--gold-light); }
+
+/* Light variant */
+.slide-light .info-card { background: var(--white); border-color: rgba(0,0,0,0.06); }
+.slide-light .info-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.06); transform: translateY(-2px); }
+.slide-light .info-card h4 { color: var(--navy); }
+.slide-light .info-card p { color: var(--slate); }
+
+/* ============================================================
+   QUESTION CARDS (international)
+   ============================================================ */
+.q-list { display: flex; flex-direction: column; gap: 12px; }
+.q-item {
+  display: flex; gap: 16px; align-items: flex-start;
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius-sm); padding: 18px 20px; transition: all 0.2s;
+}
+.q-item:hover { background: rgba(255,255,255,0.07); }
+.q-icon {
+  width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(184,148,95,0.12); color: var(--gold); font-size: 16px;
+}
+.q-item p { font-size: 14px; color: rgba(255,255,255,0.8); line-height: 1.6; }
+
+/* ============================================================
+   EXPERTISE BOX
+   ============================================================ */
+.expertise-box {
+  background: rgba(184,148,95,0.06); border: 1px solid rgba(184,148,95,0.15);
+  border-radius: var(--radius); padding: 28px; margin-top: 24px;
+}
+.expertise-box h4 {
+  font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 14px;
+}
+.expertise-box li {
+  font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.7;
+  padding: 4px 0; list-style: none; display: flex; gap: 8px;
+}
+.expertise-box li::before { content: "→"; color: var(--gold); flex-shrink: 0; }
+
+/* ============================================================
+   KNOWLEDGE BOX
+   ============================================================ */
+.knowledge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.knowledge-item {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius-sm); padding: 16px; font-size: 13px;
+  color: rgba(255,255,255,0.7); line-height: 1.6;
+}
+.knowledge-item strong { color: var(--gold-light); font-weight: 600; }
+
+/* ============================================================
+   TABLE
+   ============================================================ */
+.s-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.s-table th {
+  text-align: left; padding: 12px 16px; font-weight: 700; font-size: 11px;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold);
+  border-bottom: 2px solid rgba(184,148,95,0.2);
+}
+.s-table td {
+  padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.7);
+}
+.s-table tr:hover td { background: rgba(255,255,255,0.03); }
+
+/* ============================================================
+   COVER SPECIFIC
+   ============================================================ */
+.cover-content {
+  text-align: center; position: relative; z-index: 2;
+  max-width: 800px; margin: 0 auto;
+}
+.cover-logo {
+  font-family: var(--font-display); font-size: 72px; letter-spacing: 0.02em;
+  margin-bottom: 32px;
+}
+.cover-logo em { font-style: normal; color: var(--gold); }
+.cover-title {
+  font-family: var(--font-display); font-size: 44px; font-weight: 500;
+  line-height: 1.2; margin-bottom: 20px; color: rgba(255,255,255,0.95);
+}
+.cover-title strong { color: var(--gold); font-weight: 600; }
+.cover-year {
+  font-size: 13px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); margin-top: 40px; padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.1); display: inline-block;
+}
+.cover-tagline {
+  font-size: 16px; color: rgba(255,255,255,0.5); margin-top: 12px;
+}
+
+/* ============================================================
+   ACCROCHE (slide 2)
+   ============================================================ */
+.accroche-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  max-width: 700px; margin: 0 auto;
+}
+.accroche-word {
+  text-align: center; padding: 40px 24px;
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius); transition: all 0.3s;
+}
+.accroche-word:hover { background: rgba(255,255,255,0.07); transform: scale(1.03); }
+.accroche-word .icon { font-size: 32px; margin-bottom: 12px; display: block; }
+.accroche-word h3 {
+  font-family: var(--font-display); font-size: 28px; font-weight: 600;
+}
+
+/* ============================================================
+   CLOSING
+   ============================================================ */
+.closing-words {
+  display: flex; gap: 40px; justify-content: center; margin-bottom: 48px;
+}
+.closing-word {
+  text-align: center; padding: 32px;
+}
+.closing-word h3 {
+  font-family: var(--font-display); font-size: 32px; font-weight: 700;
+  color: var(--gold);
+}
+.closing-word p { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 8px; }
+.closing-quote {
+  font-family: var(--font-display); font-size: 28px; font-weight: 400;
+  font-style: italic; color: rgba(255,255,255,0.7); text-align: center;
+  max-width: 640px; margin: 0 auto; line-height: 1.4;
+}
+
+/* ============================================================
+   CONTACT SLIDE
+   ============================================================ */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+.contact-card {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius); padding: 32px; text-align: center;
+  transition: all 0.3s;
+}
+.contact-card:hover { background: rgba(255,255,255,0.08); transform: translateY(-3px); }
+.contact-card .city {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 14px;
+}
+.contact-card p { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.8; }
+.contact-card strong { color: var(--white); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(max-width:960px) {
+  .slide { padding: 60px 32px 80px; }
+  .s-title { font-size: 36px; }
+  .s-grid-2, .s-grid-3, .s-grid-4 { grid-template-columns: 1fr 1fr; }
+  .pillar-diagram { grid-template-columns: 1fr; }
+  .pillar { min-height: auto !important; }
+  .timeline { grid-template-columns: 1fr; gap: 24px; }
+  .timeline::before { display: none; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .closing-words { flex-direction: column; gap: 16px; }
+  .knowledge-grid { grid-template-columns: 1fr; }
+  .cover-logo { font-size: 48px; }
+  .cover-title { font-size: 28px; }
+  .accroche-grid { grid-template-columns: 1fr 1fr; }
+  .chart-container { height: 160px; }
+}
+@media(max-width:640px) {
+  .slide { padding: 40px 20px 80px; }
+  .s-title { font-size: 28px; }
+  .s-grid-2 { grid-template-columns: 1fr; }
+  .accroche-grid { grid-template-columns: 1fr; }
+  .stat-value { font-size: 28px; }
+  .nav-bar { padding: 12px 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+<!-- ============================================================
+     SLIDE 1 — COUVERTURE
+     ============================================================ -->
+<div class="slide slide-dark active" data-slide="0">
+  <div class="cover-content">
+    <div class="cover-logo"><em>A</em>BL</div>
+    <div class="cover-title">Votre partenaire de <strong>confiance</strong><br>pour une retraite <strong>sereine</strong></div>
+    <div class="cover-year">Présentation 2026</div>
+    <div class="cover-tagline">Expert indépendant en retraite obligatoire</div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SLIDE 2 — ACCROCHE
+     ============================================================ -->
+<div class="slide slide-dark" data-slide="1">
+  <div class="s-content s-center">
+    <div class="s-label">La retraite en France, un sujet…</div>
+    <div class="accroche-grid">
+      <div class="accroche-word"><span class="icon">🌍</span><h3>Universel</h3></div>
+      <div class="accroche-word"><span class="icon">👤</span><h3>Personnel</h3></div>
+      <div class="accroche-word"><span class="icon">🌫️</span><h3>Nébuleux</h3></div>
+      <div class="accroche-word"><span class="icon">⚙️</span><h3>Technique</h3></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SLIDE 3 — CHIFFRES REPÈRES
+     ============================================================ -->
+<div class="slide slide-dark" data-slide="2">
+  <div class="s-content">
+    <div class="s-label">Repères chiffrés</div>
+    <div class="s-title">La retraite en France</div>
+    <div style="display:grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-top: 8px;">
+      <div class="stat-card">
+        <div class="stat-value">353 Md€</div>
+        <div class="stat-label">versés annuellement<br><small style="opacity:0.6">1er poste de dépense publique</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">17,9 M</div>
+        <div class="stat-label">de bénéficiaires<br><small style="opacity:0.6">+175 000 vs 2023</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">1 512 €</div>
+        <div class="stat-label">pension nette moyenne<br><small style="opacity:0.6">mensuelle en 2024</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">72,1%</div>
+        <div class="stat-label">taux de remplacement<br><small style="opacity:0.6">moyen</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">30,1 M</div>
+        <div class="stat-label">de cotisants</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">23 ans</div>
+        <div class="stat-label">durée moyenne de<br>perception des droits</div>
+      </div>
+      <div class="stat-card highlight">
+        <div class="stat-value">21,4%</div>
+        <div class="stat-label">d'erreurs sur le calcul<br>des pensions</div>
+      </div>
+      <div class="stat-card" style="display:flex; flex-direction:column; justify-content:center;">
+        <div class="stat-label" style="font-size:11px; opacity:0.5;">Sources : DREES oct. 2024<br>Cour des Comptes</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SLIDE 4 — SYSTÈME 3 PILIERS
+     ============================================================ -->
+<div class="slide slide-dark" data-slide="3">
+  <div class="s-content">
+    <div class="s-label">Le système de retraite en France</div>
+    <div class="s-title">Trois <em>piliers</em></div>
+    <div class="pillar-diagram" style="margin-top:16px;">
+      <div class="pillar pillar-1">
+        <span class="pillar-tag">1er pilier — Obligatoire</span>
+        <h3>Retraite de base</h3>
+        <p>Régime Général (CARSAT), régimes alignés (MSA, SSI), régimes spéciaux (SRE, CNRACL, CRP SNCF…), professions libérales (CIPAV, CARPIMKO, CNBF…)</p>
+        <div class="pillar-footer">Système par répartition</div>
+      </div>
+      <div class="pillar pillar-2">
+        <span class="pillar-tag">2e pilier — Obligatoire</span>
+        <h3>Retraite complémentaire</h3>
+        <p>AGIRC-ARRCO, IRCANTEC, RAFP…</p>
+        <div class="pillar-footer">Système par répartition</div>
+      </div>
+      <div class="pillar pillar-3">
+        <span class="pillar-tag">3e pilier — Optionnel</span>
+        <h3>Retraite supplémentaire</h3>
+        <p>Épargne individuelle ou entreprise (PER, PERCO)</p>
+        <div class="pillar-footer">Système par capitalisation</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SLIDE 5 — 42 RÉGIMES
+     ============================================================ -->
+<div class="slide slide-light" data-slide="4">
+  <div class="s-content">
+    <div class="s-label">Les retraites obligatoires en France</div>
+    <div class="s-title">42 régimes <em>nationaux</em></div>
+    <div class="s-grid s-grid-2" style="margin-top:8px;">
+      <div class="info-card">
+        <h4>Régimes de base</h4>
+        <p>Des <strong>trimestres acquis</strong> qui fixent un taux, appliqué à une moyenne de revenus.</p>
+        <p style="margin-top:12px; font-size:12px; opacity:0.7;">Cotisations plafonnées · Mécanismes de lissage</p>
+      </div>
+      <div class="info-card">
+        <h4>Régimes complémentaires</h4>
+        <p>Des <strong>cotisations déplafonnées</strong> qui attribuent des points en fonction des revenus.</p>
+        <p style="margin-top:12px; font-size:12px; opacity:0.7;">Points convertis en montant de pension</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SLIDE 6 — INTERNATIONAL
+     ============================================================ -->
+<div class="slide slide-dark" data-slide="5">
+  <div class="s-content">
+    <div class="s-grid s-grid-2" style="align-items:center;">
+      <div>
+        <div class="s-label">Problématiques spécifiques</div>
+        <div class="s-title">Les carrières à l'<em>international</em></div>
+        <div class="s-subtitle">Des situations complexes qui nécessitent une expertise pointue sur les conventions bilatérales et les mécanismes de coordination.</div>
+      </div>
+      <div class="q-list">
+        <div class="q-item">
+          <div class="q-icon">📋</div>
+          <p>Contrat d'expatrié, VIE, contrat local ou cotisations volontaires ?</p>
+        </div>
+        <div class="q-item">
+          <div class="q-icon">🤝</div>
+          <p>Pays avec ou sans convention de Sécurité Sociale avec la France ?</p>
+        </div>
+        <div class="q-item">
+          <div class="q-icon">📊</div>
+          <p>Quel impact pour ma retraite française en termes de trimestres ?</p>
+        </div>
+        <div class="q-item">
+          <div class="q-icon">💶</div>
+          <p>Ai-je droit à une pension dans ce pays ? Quand ? Combien ? Comment ?</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SLIDE 7 — CONSTAT RISQUES + GRAPHIQUE
+     ============================================================ -->
+<div class="slide slide-accent" data-slide="6">
+  <div class="s-content">
+    <div class="s-grid s-grid-2" style="align-items:center;">
+      <div>
+        <div class="s-label">Notre constat</div>
+        <div class="s-title">Des risques <em>accrus</em> sur les pensions</div>
+        <div class="q-list" style="margin-top:16px;">
+          <div class="q-item">
+            <div class="q-icon">📈</div>
+            <p>Carrières de plus en plus complexes, hausse des assurés poly-affiliés</p>
+          </div>
+          <div class="q-item">
+            <div class="q-icon">⚖️</div>
+            <p>Réglementations plus techniques et conditions plus restrictives depuis la réforme 2023</p>
+          </div>
+          <div class="q-item">
+            <div class="q-icon">📉</div>
+            <p>Dégradation du service de traitement malgré la hausse des demandes</p>
+          </div>
+          <div class="q-item">
+            <div class="q-icon">⚠️</div>
+            <p>Erreurs de caisses en augmentation constante signalées par la Cour des Comptes</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="text-align:center; margin-bottom:16px; font-size:13px; color:rgba(255,255,255,0.5); font-weight:600;">
+          Évolution du % d'erreurs — Cour des Comptes
+        </div>
+        <div class="chart-container" id="errorChart">
+          <div class="chart-bar-wrap">
+            <div class="chart-bar bar-normal" data-height="32" style="height:0%"><span class="chart-bar-value">10,9%</span></div>
+            <span class="chart-bar-label">2019</span>
+          </div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar bar-normal" data-height="37" style="height:0%"><span class="chart-bar-value">12,4%</span></div>
+            <span class="chart-bar-label">2020</span>
+          </div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar bar-normal" data-height="42" style="height:0%"><span class="chart-bar-value">14,3%</span></div>
+            <span class="chart-bar-label">2021</span>
+          </div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar bar-normal" data-height="47" style="height:0%"><span class="chart-bar-value">15,5%</span></div>
+            <span class="chart-bar-label">2022</span>
+          </div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar bar-danger" data-height="56" style="height:0%"><span class="chart-bar-value">18,3%</span></div>
+            <span class="chart-bar-label">2023</span>
+          </div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar bar-danger" data-height="65" style="height:0%"><span class="chart-bar-value">21,4%</span></div>
+            <span class="chart-bar-label">2024</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SLIDE 8 — PARCOURS 3 ÉTAPES
+     ============================================================ -->
+<div class="slide slide-dark" data-slide="7">
+  <div class="s-content s-center">
+    <div class="s-label">L'accompagnement ABL</div>
+    <div class="s-title">À chaque étape de votre <em>parcours</em></div>
+    <div class="timeline" style="margin-top:40px;">
+      <div class="timeline-step step-active">
+        <div class="timeline-num">1</div>
+        <h3>Reconstitution</h3>
+        <p>Fiabilisation &amp; optimisation des droits acquis</p>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-num">2</div>
+        <h3>Stratégie</h3>
+        <p>Audit, projections chiffrées &amp; conseils</p>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-num">3</div>
+        <h3>Liquidation</h3>
+        <p>Accompagnement &amp; vérification des montants</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SLIDE 9 — RECONSTITUTION DE CARRIÈRE
+     ============================================================ -->
+<div class="slide slide-light" data-slide="8">
+  <div class="s-content">
+    <div class="s-grid s-grid-2" style="align-items:start;">
+      <div>
+        <div class="s-label">Étape 1</div>
+        <div class="s-title">Reconstitution de <em>carrière</em></div>
+        <div class="s-subtitle">Comparaison entre les droits enregistrés et la réalité des droits acquis. Reconstitution intégrale ou partielle de la carrière.</div>
+        <div class="expertise-box" style="background:rgba(184,148,95,0.06); border-color:rgba(184,148,95,0.15);">
+          <h4 style="color:var(--gold);">L'expertise ABL</h4>
+          <ul style="list-style:none; padding:0;">
+            <li>Maîtrise de la législation, des barèmes et des spécificités des régimes</li>
+            <li>Capacité à déceler erreurs et manquants, analyse des justificatifs</li>
+            <li>Connaissance des subtilités et enquêtes à formuler auprès des caisses</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="info-card" style="margin-bottom:16px;">
+          <h4>⚠️ Le saviez-vous ?</h4>
+          <p style="margin-bottom:0;">Le relevé individuel de situation (RIS) porte une mention légale : il est délivré « en l'état » et a un caractère <strong>indicatif et provisoire</strong>. Il ne saurait engager les régimes de retraite.</p>
+        </div>
+        <div class="info-card">
+          <h4>Ce que le RIS ne montre pas</h4>
+          <p>Majorations enfants, cotisations à l'étranger, trimestres VIE/stages/ACRE, distinction cotisés vs assimilés, impact sur carrière longue et minimum contributif.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SLIDE 10 — LE SAVIEZ-VOUS (expertise)
+     ============================================================ -->
+<div class="slide slide-dark" data-slide="9">
+  <div class="s-content">
+    <div class="s-label">Reconstitution — Points de vigilance</div>
+    <div class="s-title">Les subtilités de vos <em>droits</em></div>
+    <div class="knowledge-grid" style="margin-top:24px;">
+      <div class="knowledge-item">
+        <strong>Trimestres cotisés vs assimilés</strong> — acquis au titre des revenus de remplacement (chômage, maladie, maternité, service militaire). Impact différent pour la retraite anticipée carrière longue.
+      </div>
+      <div class="knowledge-item">
+        <strong>Cotisations plafonnées</strong> — au PASS pour le régime de base, mais déplafonnées à la complémentaire. Les deux logiques ne se recoupent pas.
+      </div>
+      <div class="knowledge-item">
+        <strong>Éléments non soumis</strong> — gratifications, avantages en nature, indemnités prud'homales ne sont pas soumis à cotisations sociales.
+      </div>
+      <div class="knowledge-item">
+        <strong>Périodes d'interruption</strong> — maternité, maladie, chômage ouvrent droit à des trimestres ET des points complémentaires selon des règles distinctes.
+      </div>
+      <div class="knowledge-item">
+        <strong>Éléments absents du RIS</strong> — majorations enfants, cotisations à l'étranger, trimestres VIE, formations, ACRE… doivent être déclarés.
+      </div>
+      <div class="knowledge-item">
+        <strong>Minimum contributif</strong> — son calcul dépend de la nature des trimestres. La distinction cotisé/assimilé est déterminante.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SLIDE 11 — STRATÉGIE FIN DE CARRIÈRE
+     ============================================================ -->
+<div class="slide slide-light" data-slide="10">
+  <div class="s-content">
+    <div class="s-label">Étape 2</div>
+    <div class="s-title">Stratégie de <em>fin de carrière</em></div>
+    <div class="s-grid s-grid-2" style="margin-top:16px; align-items:start;">
+      <div>
+        <div class="s-subtitle" style="margin-bottom:24px;">Une étude personnalisée qui tient compte de vos objectifs, attentes et impératifs.</div>
+        <div class="info-card" style="margin-bottom:16px;">
+          <h4>🎯 Bilan des droits acquis</h4>
+          <p>Retraite anticipée carrière longue, retraite progressive, problématiques de santé, cumul emploi-retraite, réversion, rachats de trimestres…</p>
+        </div>
+        <div class="info-card">
+          <h4>📊 Chiffrages &amp; projections</h4>
+          <p>Scénarios de départ, meilleurs rapports date/montant, délais de récupération, pistes d'optimisation et amortissement des investissements.</p>
+        </div>
+      </div>
+      <div>
+        <div class="info-card" style="margin-bottom:16px;">
+          <h4>⚖️ Choix statutaires</h4>
+          <p>Forme juridique, type de rémunération, expatriation, effort de cotisations supplémentaires, incidence rupture d'activité et chômage…</p>
+        </div>
+        <div class="info-card info-card-gold" style="border-color:rgba(184,148,95,0.3); background:rgba(184,148,95,0.04);">
+          <h4 style="color:var(--gold);">L'objectif</h4>
+          <p>Anticiper et préparer la transition vers la retraite en maîtrisant la <strong>date d'effet</strong> et la <strong>dimension financière</strong>. Bâtir une stratégie dans un espace-temps maîtrisé.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SLIDE 12 — LIQUIDATION
+     ============================================================ -->
+<div class="slide slide-dark" data-slide="11">
+  <div class="s-content">
+    <div class="s-grid s-grid-2" style="align-items:center;">
+      <div>
+        <div class="s-label">Étape 3</div>
+        <div class="s-title">Liquidation des <em>droits</em></div>
+        <div class="s-subtitle">Garantir le juste paiement des droits acquis au moment le plus opportun.</div>
+      </div>
+      <div>
+        <div class="info-card" style="margin-bottom:16px;">
+          <span class="icon">📝</span>
+          <h4>Déclenchement inter-régimes</h4>
+          <p>Demande en ligne avec traçabilité des dépôts auprès de toutes les caisses compétentes.</p>
+        </div>
+        <div class="info-card" style="margin-bottom:16px;">
+          <span class="icon">🔍</span>
+          <h4>Suivi des instructions</h4>
+          <p>Envois des pièces, demandes de corrections, réponses aux enquêtes des caisses comme interlocuteur de référence.</p>
+        </div>
+        <div class="info-card">
+          <span class="icon">✅</span>
+          <h4>Vérifications &amp; recours</h4>
+          <p>Contrôle des notifications et montants, consolidation inter-régimes, accompagnement sur les recours.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SLIDE 13 — CLOSING
+     ============================================================ -->
+<div class="slide slide-dark" data-slide="12">
+  <div class="s-content s-center">
+    <div class="s-label">Notre engagement</div>
+    <div class="closing-words">
+      <div class="closing-word">
+        <h3>Anticiper</h3>
+        <p>Reconstitution &amp; fiabilisation</p>
+      </div>
+      <div class="closing-word" style="position:relative;">
+        <div style="position:absolute; left:-20px; top:50%; transform:translateY(-50%); color:rgba(255,255,255,0.15); font-size:24px;">→</div>
+        <h3>Choisir</h3>
+        <p>Stratégie &amp; projections</p>
+      </div>
+      <div class="closing-word" style="position:relative;">
+        <div style="position:absolute; left:-20px; top:50%; transform:translateY(-50%); color:rgba(255,255,255,0.15); font-size:24px;">→</div>
+        <h3>Déclencher</h3>
+        <p>Liquidation &amp; vérification</p>
+      </div>
+    </div>
+    <div class="closing-quote">
+      « Préparez aujourd'hui avec sagesse<br>pour savourer demain avec sérénité »
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SLIDE 14 — CONTACT
+     ============================================================ -->
+<div class="slide slide-dark" data-slide="13">
+  <div class="s-content s-center">
+    <div class="cover-logo" style="font-size:56px; margin-bottom:40px;"><em>A</em>BL</div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="city">📍 Toulouse — Siège</div>
+        <p>55, avenue Louis Bréguet<br>Bâtiment Ariane, 3<sup>e</sup> étage<br>31400 Toulouse<br><br><strong>05 34 42 17 84</strong></p>
+      </div>
+      <div class="contact-card">
+        <div class="city">📍 Bordeaux</div>
+        <p>Maison des Professions Libérales<br>51 bd Président Wilson<br>33000 Bordeaux<br><br><strong>06 51 36 02 38</strong></p>
+      </div>
+      <div class="contact-card">
+        <div class="city">✉️ Contact</div>
+        <p><strong>contact@abl-retraite.fr</strong><br><br>Expert indépendant en droits<br>de retraite obligatoire</p>
+      </div>
+    </div>
+    <div style="margin-top:40px; font-size:12px; color:rgba(255,255,255,0.3);">
+      ABL — Présentation 2026 · Tous droits réservés
+    </div>
+  </div>
+</div>
+
+</div><!-- /deck -->
+
+<!-- ============================================================
+     NAVIGATION BAR
+     ============================================================ -->
+<nav class="nav-bar">
+  <div class="nav-brand"><em>A</em>BL</div>
+  <div class="nav-dots" id="navDots"></div>
+  <div style="display:flex; align-items:center; gap:16px;">
+    <span class="nav-counter" id="navCounter">1 / 14</span>
+    <div class="nav-arrows">
+      <button class="nav-arrow" id="btnPrev" onclick="goSlide(current-1)">←</button>
+      <button class="nav-arrow" id="btnNext" onclick="goSlide(current+1)">→</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script>
+const slides = document.querySelectorAll('.slide');
+const totalSlides = slides.length;
+let current = 0;
+let animating = false;
+
+function buildDots() {
+  const container = document.getElementById('navDots');
+  for (let i = 0; i < totalSlides; i++) {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    dot.onclick = () => goSlide(i);
+    container.appendChild(dot);
+  }
+}
+
+function goSlide(index) {
+  if (animating || index === current || index < 0 || index >= totalSlides) return;
+  animating = true;
+
+  const direction = index > current ? 'next' : 'prev';
+  slides[current].classList.remove('active');
+  slides[current].classList.add(direction === 'next' ? 'prev' : '');
+
+  current = index;
+  slides[current].classList.remove('prev');
+  slides[current].classList.add('active');
+
+  updateNav();
+  animateSlideContent(current);
+
+  setTimeout(() => {
+    slides.forEach((s, i) => { if (i !== current) s.classList.remove('prev'); });
+    animating = false;
+  }, 550);
+}
+
+function updateNav() {
+  document.getElementById('navCounter').textContent = `${current + 1} / ${totalSlides}`;
+  document.querySelectorAll('.nav-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+  document.getElementById('btnPrev').disabled = current === 0;
+  document.getElementById('btnNext').disabled = current === totalSlides - 1;
+}
+
+function animateSlideContent(idx) {
+  const slide = slides[idx];
+  const bars = slide.querySelectorAll('.chart-bar[data-height]');
+  bars.forEach(bar => {
+    bar.style.height = '0%';
+    setTimeout(() => { bar.style.height = bar.dataset.height + '%'; }, 100);
+  });
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goSlide(current + 1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); goSlide(current - 1); }
+  if (e.key === 'Home') { e.preventDefault(); goSlide(0); }
+  if (e.key === 'End') { e.preventDefault(); goSlide(totalSlides - 1); }
+});
+
+let touchStartX = 0;
+document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+document.addEventListener('touchend', (e) => {
+  const diff = touchStartX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) > 50) {
+    diff > 0 ? goSlide(current + 1) : goSlide(current - 1);
+  }
+});
+
+buildDots();
+updateNav();
+</script>
+
+</body>
+</html>
