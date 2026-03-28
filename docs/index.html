@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ALD — Expert indépendant en retraite obligatoire</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <style>
 /* ============================================================
@@ -461,9 +461,132 @@ img { display: block; max-width: 100%; }
   padding: 10px 20px; border: 1px solid rgba(0,0,0,0.06); border-radius: var(--radius-sm);
   background: var(--white);
 }
+
+/* ============================================================
+   DA SWITCHER (dev tool)
+   ============================================================ */
+.da-toggle {
+  position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+  width: 48px; height: 48px; border-radius: 50%; border: none; cursor: pointer;
+  background: var(--navy); color: var(--white); font-size: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25); transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center;
+}
+.da-toggle:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(0,0,0,0.35); }
+.da-toggle.open { border-radius: 50% 50% 0 0; }
+
+.da-panel {
+  position: fixed; bottom: 80px; right: 24px; z-index: 9998;
+  width: 320px; max-height: 80vh; overflow-y: auto;
+  background: var(--white); border-radius: 12px;
+  box-shadow: 0 12px 48px rgba(0,0,0,0.18); border: 1px solid rgba(0,0,0,0.08);
+  padding: 0; transform: translateY(12px); opacity: 0; pointer-events: none;
+  transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+}
+.da-panel.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+
+.da-panel-header {
+  padding: 16px 20px 12px; border-bottom: 1px solid rgba(0,0,0,0.06);
+  font-weight: 700; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: #6b7280;
+}
+.da-option {
+  padding: 16px 20px; cursor: pointer; transition: background 0.15s;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+.da-option:hover { background: #f9fafb; }
+.da-option.active { background: #f0f4ff; }
+.da-option-name { font-weight: 700; font-size: 14px; color: #1a1a1a; margin-bottom: 6px; }
+.da-option-detail { font-size: 11px; color: #6b7280; line-height: 1.5; }
+.da-swatches { display: flex; gap: 4px; margin-top: 8px; }
+.da-swatch { width: 20px; height: 20px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.1); }
+.da-font-preview { margin-top: 8px; line-height: 1.2; }
+.da-font-display { font-size: 22px; color: #1a1a1a; }
+.da-font-body { font-size: 13px; color: #6b7280; margin-top: 2px; }
 </style>
 </head>
 <body>
+
+<!-- DA SWITCHER -->
+<button class="da-toggle" id="daToggle" onclick="toggleDAPanel()" title="Changer la direction artistique">🎨</button>
+<div class="da-panel" id="daPanel">
+  <div class="da-panel-header">Direction Artistique</div>
+
+  <div class="da-option active" onclick="applyDA('a')">
+    <div class="da-option-name">A · Garamond Chaud</div>
+    <div class="da-option-detail">Cormorant Garamond + Plus Jakarta Sans</div>
+    <div class="da-font-preview">
+      <div class="da-font-display" style="font-family:'Cormorant Garamond',serif;font-weight:600;">Vos droits de retraite</div>
+      <div class="da-font-body" style="font-family:'Plus Jakarta Sans',sans-serif;">Un accompagnement expert et indépendant</div>
+    </div>
+    <div class="da-swatches">
+      <div class="da-swatch" style="background:#1a2744;" title="Navy"></div>
+      <div class="da-swatch" style="background:#b8945f;" title="Gold"></div>
+      <div class="da-swatch" style="background:#faf9f7;" title="Fond"></div>
+      <div class="da-swatch" style="background:#6b7280;" title="Texte"></div>
+    </div>
+  </div>
+
+  <div class="da-option" onclick="applyDA('b')">
+    <div class="da-option-name">B · Lora Autoritaire</div>
+    <div class="da-option-detail">Lora + Source Sans 3</div>
+    <div class="da-font-preview">
+      <div class="da-font-display" style="font-family:'Lora',serif;font-weight:600;">Vos droits de retraite</div>
+      <div class="da-font-body" style="font-family:'Source Sans 3',sans-serif;">Un accompagnement expert et indépendant</div>
+    </div>
+    <div class="da-swatches">
+      <div class="da-swatch" style="background:#1e293b;" title="Navy"></div>
+      <div class="da-swatch" style="background:#a67c52;" title="Bronze"></div>
+      <div class="da-swatch" style="background:#f8f7f4;" title="Fond"></div>
+      <div class="da-swatch" style="background:#64748b;" title="Texte"></div>
+    </div>
+  </div>
+
+  <div class="da-option" onclick="applyDA('c')">
+    <div class="da-option-name">C · Baskerville Classique</div>
+    <div class="da-option-detail">Libre Baskerville + Outfit</div>
+    <div class="da-font-preview">
+      <div class="da-font-display" style="font-family:'Libre Baskerville',serif;font-weight:700;">Vos droits de retraite</div>
+      <div class="da-font-body" style="font-family:'Outfit',sans-serif;">Un accompagnement expert et indépendant</div>
+    </div>
+    <div class="da-swatches">
+      <div class="da-swatch" style="background:#0c2340;" title="Navy"></div>
+      <div class="da-swatch" style="background:#c4953a;" title="Or vif"></div>
+      <div class="da-swatch" style="background:#fdfcfa;" title="Fond"></div>
+      <div class="da-swatch" style="background:#71717a;" title="Texte"></div>
+    </div>
+  </div>
+
+  <div class="da-option" onclick="applyDA('d')">
+    <div class="da-option-name">D · Playfair Éditorial</div>
+    <div class="da-option-detail">Playfair Display + Inter</div>
+    <div class="da-font-preview">
+      <div class="da-font-display" style="font-family:'Playfair Display',serif;font-weight:700;">Vos droits de retraite</div>
+      <div class="da-font-body" style="font-family:'Inter',sans-serif;">Un accompagnement expert et indépendant</div>
+    </div>
+    <div class="da-swatches">
+      <div class="da-swatch" style="background:#14213d;" title="Navy"></div>
+      <div class="da-swatch" style="background:#d4a44c;" title="Or classique"></div>
+      <div class="da-swatch" style="background:#fcfcfc;" title="Fond"></div>
+      <div class="da-swatch" style="background:#737373;" title="Texte"></div>
+    </div>
+  </div>
+
+  <div class="da-option" onclick="applyDA('e')">
+    <div class="da-option-name">E · Fraunces Moderne</div>
+    <div class="da-option-detail">Fraunces + Sora</div>
+    <div class="da-font-preview">
+      <div class="da-font-display" style="font-family:'Fraunces',serif;font-weight:600;">Vos droits de retraite</div>
+      <div class="da-font-body" style="font-family:'Sora',sans-serif;">Un accompagnement expert et indépendant</div>
+    </div>
+    <div class="da-swatches">
+      <div class="da-swatch" style="background:#1b2a4a;" title="Navy"></div>
+      <div class="da-swatch" style="background:#c08b5c;" title="Cuivre"></div>
+      <div class="da-swatch" style="background:#f7f5f0;" title="Fond"></div>
+      <div class="da-swatch" style="background:#78716c;" title="Texte"></div>
+    </div>
+  </div>
+</div>
 
 <!-- ================================================================
      HEADER
@@ -1881,6 +2004,82 @@ function renderAnomalyList(result) {
     </div>`;
   });
   container.innerHTML = html;
+}
+
+/* ============================================================
+   DA SWITCHER ENGINE
+   ============================================================ */
+const DA_PRESETS = {
+  a: {
+    '--font-display': "'Cormorant Garamond', Georgia, serif",
+    '--font-body': "'Plus Jakarta Sans', system-ui, sans-serif",
+    '--navy': '#1a2744', '--navy-deep': '#0f1729', '--navy-mid': '#243352', '--navy-light': '#2e4066',
+    '--gold': '#b8945f', '--gold-light': '#d4b683', '--gold-pale': '#f0e6d3',
+    '--slate': '#6b7280', '--slate-light': '#9ca3af',
+    '--off-white': '#faf9f7', '--warm-gray': '#f3f1ed'
+  },
+  b: {
+    '--font-display': "'Lora', Georgia, serif",
+    '--font-body': "'Source Sans 3', system-ui, sans-serif",
+    '--navy': '#1e293b', '--navy-deep': '#0f172a', '--navy-mid': '#334155', '--navy-light': '#475569',
+    '--gold': '#a67c52', '--gold-light': '#c4a07a', '--gold-pale': '#ede4d8',
+    '--slate': '#64748b', '--slate-light': '#94a3b8',
+    '--off-white': '#f8f7f4', '--warm-gray': '#f1efe9'
+  },
+  c: {
+    '--font-display': "'Libre Baskerville', Georgia, serif",
+    '--font-body': "'Outfit', system-ui, sans-serif",
+    '--navy': '#0c2340', '--navy-deep': '#061527', '--navy-mid': '#1a3a5c', '--navy-light': '#2a4f75',
+    '--gold': '#c4953a', '--gold-light': '#dbb56a', '--gold-pale': '#f2e8cf',
+    '--slate': '#71717a', '--slate-light': '#a1a1aa',
+    '--off-white': '#fdfcfa', '--warm-gray': '#f5f3ee'
+  },
+  d: {
+    '--font-display': "'Playfair Display', Georgia, serif",
+    '--font-body': "'Inter', system-ui, sans-serif",
+    '--navy': '#14213d', '--navy-deep': '#0a1128', '--navy-mid': '#1d3557', '--navy-light': '#2b4a6f',
+    '--gold': '#d4a44c', '--gold-light': '#e5c47a', '--gold-pale': '#f5ebd4',
+    '--slate': '#737373', '--slate-light': '#a3a3a3',
+    '--off-white': '#fcfcfc', '--warm-gray': '#f4f2ef'
+  },
+  e: {
+    '--font-display': "'Fraunces', Georgia, serif",
+    '--font-body': "'Sora', system-ui, sans-serif",
+    '--navy': '#1b2a4a', '--navy-deep': '#101b33', '--navy-mid': '#2a3d62', '--navy-light': '#3a5278',
+    '--gold': '#c08b5c', '--gold-light': '#d9ad82', '--gold-pale': '#eee2d0',
+    '--slate': '#78716c', '--slate-light': '#a8a29e',
+    '--off-white': '#f7f5f0', '--warm-gray': '#eeebe4'
+  }
+};
+
+let currentDA = 'a';
+
+function toggleDAPanel() {
+  const panel = document.getElementById('daPanel');
+  const btn = document.getElementById('daToggle');
+  panel.classList.toggle('open');
+  btn.classList.toggle('open');
+}
+
+function applyDA(key) {
+  const preset = DA_PRESETS[key];
+  if (!preset) return;
+  const root = document.documentElement;
+  Object.entries(preset).forEach(([prop, val]) => root.style.setProperty(prop, val));
+
+  document.querySelectorAll('.da-option').forEach(el => el.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  currentDA = key;
+
+  const headerBg = `rgba(${hexToRgb(preset['--navy'])},0.92)`;
+  document.querySelector('.header.scrolled .header-inner')?.style?.setProperty('background', headerBg);
+}
+
+function hexToRgb(hex) {
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  return `${r},${g},${b}`;
 }
 </script>
 
