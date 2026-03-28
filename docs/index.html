@@ -5,23 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ALD — Expert indépendant en retraite obligatoire</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <style>
 /* ============================================================
    DESIGN TOKENS
    ============================================================ */
 :root {
-  --navy: #0f1729;
-  --navy-mid: #1a2744;
-  --navy-light: #243352;
-  --gold: #c9a55c;
-  --gold-light: #e2cc8f;
-  --gold-pale: #f5edd6;
-  --slate: #7a8ba5;
-  --slate-light: #a3b1c6;
+  --navy: #1a2744;
+  --navy-deep: #0f1729;
+  --navy-mid: #243352;
+  --navy-light: #2e4066;
+  --gold: #b8945f;
+  --gold-light: #d4b683;
+  --gold-pale: #f0e6d3;
+  --slate: #6b7280;
+  --slate-light: #9ca3af;
   --white: #ffffff;
-  --off-white: #f4f6f9;
+  --off-white: #faf9f7;
+  --warm-gray: #f3f1ed;
   --green: #34d399;
   --green-dark: #059669;
   --red-soft: #fca5a5;
@@ -30,16 +32,16 @@
   --glass-border: rgba(255,255,255,0.1);
   --glass-bg-light: rgba(255,255,255,0.72);
   --glass-border-light: rgba(255,255,255,0.5);
-  --glass-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  --glass-shadow: 0 8px 32px rgba(0,0,0,0.10);
   --glass-blur: blur(16px);
 
-  --radius: 16px;
-  --radius-sm: 10px;
-  --radius-xs: 6px;
+  --radius: 14px;
+  --radius-sm: 8px;
+  --radius-xs: 4px;
   --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
 
-  --font-body: 'DM Sans', system-ui, sans-serif;
-  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
 }
 
 /* ============================================================
@@ -132,7 +134,7 @@ img { display: block; max-width: 100%; }
   text-transform: uppercase; color: var(--gold); margin-bottom: 10px; text-align: center;
 }
 .section-title {
-  font-family: var(--font-display); font-size: 38px; line-height: 1.2;
+  font-family: var(--font-display); font-size: 42px; font-weight: 600; line-height: 1.15;
   text-align: center; margin-bottom: 14px; color: var(--navy);
 }
 .section-subtitle {
@@ -166,7 +168,7 @@ img { display: block; max-width: 100%; }
   transition: all var(--transition);
 }
 .header.scrolled .header-inner {
-  background: rgba(15,23,41,0.85);
+  background: rgba(26,39,68,0.92);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255,255,255,0.06);
@@ -219,7 +221,7 @@ img { display: block; max-width: 100%; }
 .hero {
   min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
   text-align: center; padding: 140px 40px 80px;
-  background: linear-gradient(160deg, var(--navy) 0%, #1e3a5f 40%, #243352 100%);
+  background: linear-gradient(160deg, var(--navy-deep) 0%, var(--navy) 40%, var(--navy-mid) 100%);
   position: relative; overflow: hidden;
 }
 .hero::before {
@@ -235,10 +237,25 @@ img { display: block; max-width: 100%; }
   pointer-events: none;
 }
 .hero-content { position: relative; z-index: 2; max-width: 780px; margin: 0 auto; }
+.hero-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
+@media(max-width:900px) { .hero-layout { grid-template-columns: 1fr; text-align: center; } }
 .hero h1 {
-  font-family: var(--font-display); font-size: 52px; color: var(--white);
-  line-height: 1.15; margin-bottom: 20px;
+  font-family: var(--font-display); font-size: 56px; font-weight: 600; color: var(--white);
+  line-height: 1.1; margin-bottom: 20px;
 }
+.visual-placeholder {
+  border: 2px dashed rgba(255,255,255,0.2); border-radius: var(--radius);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 8px; color: rgba(255,255,255,0.4); font-size: 12px; text-align: center;
+  padding: 24px; min-height: 200px; position: relative; overflow: hidden;
+  background: rgba(255,255,255,0.03);
+}
+.visual-placeholder.light {
+  border-color: rgba(0,0,0,0.1); color: var(--slate); background: var(--warm-gray);
+}
+.visual-placeholder .ph-icon { font-size: 32px; opacity: 0.5; }
+.visual-placeholder .ph-label { font-weight: 600; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+.visual-placeholder .ph-spec { font-size: 10px; max-width: 260px; line-height: 1.5; opacity: 0.7; }
 .hero h1 em { font-style: normal; color: var(--gold); }
 .hero .lead {
   font-size: 18px; color: var(--slate-light); max-width: 560px;
@@ -479,18 +496,26 @@ img { display: block; max-width: 100%; }
       <span>4.9/5 sur Google</span>
       <span>Toulouse & Bordeaux</span>
     </div>
-    <div class="hero-content">
-      <div class="badge badge-glass" style="margin-bottom:24px;">Nouveau — Cabinet 100% dédié aux régimes obligatoires</div>
-      <h1>Vos droits de retraite méritent un <em>expert indépendant</em></h1>
-      <p class="lead">Nous ne vendons aucun produit financier. Notre seul métier : vérifier, corriger et optimiser vos droits de retraite obligatoire.</p>
-      <div class="hero-ctas">
-        <a href="#" onclick="nav('simulateur')" class="btn btn-primary btn-lg">Estimer ma retraite gratuitement</a>
-        <a href="#" onclick="nav('contact')" class="btn btn-outline-light btn-lg">Prendre rendez-vous</a>
+    <div class="hero-layout">
+      <div class="hero-content" style="text-align:left;">
+        <div class="badge badge-glass" style="margin-bottom:24px;">Nouveau — Cabinet 100% dédié aux régimes obligatoires</div>
+        <h1>Vos droits de retraite méritent un <em>expert indépendant</em></h1>
+        <p class="lead">Nous ne vendons aucun produit financier. Notre seul métier : vérifier, corriger et optimiser vos droits de retraite obligatoire.</p>
+        <div class="hero-ctas" style="justify-content:flex-start;">
+          <a href="#" onclick="nav('simulateur')" class="btn btn-primary btn-lg">Estimer ma retraite gratuitement</a>
+          <a href="#" onclick="nav('contact')" class="btn btn-outline-light btn-lg">Prendre rendez-vous</a>
+        </div>
+        <div class="hero-proof" style="justify-content:flex-start;">
+          <div class="stat"><div class="stat-value">4.9/5</div><div class="stat-label">Google Reviews</div></div>
+          <div class="stat"><div class="stat-value">200+</div><div class="stat-label">Dossiers traités</div></div>
+          <div class="stat"><div class="stat-value">42</div><div class="stat-label">Régimes maîtrisés</div></div>
+        </div>
       </div>
-      <div class="hero-proof">
-        <div class="stat"><div class="stat-value">4.9/5</div><div class="stat-label">Google Reviews</div></div>
-        <div class="stat"><div class="stat-value">200+</div><div class="stat-label">Dossiers traités</div></div>
-        <div class="stat"><div class="stat-value">42</div><div class="stat-label">Régimes maîtrisés</div></div>
+      <!-- VISUEL V1 : HERO -->
+      <div class="visual-placeholder" style="min-height:420px;border-radius:var(--radius);">
+        <div class="ph-icon">📷</div>
+        <div class="ph-label">Visuel V1 — Hero</div>
+        <div class="ph-spec">Photo pro, femme 50-55 ans, sourire confiant, bureau moderne épuré, lumière naturelle douce. Tons chauds, beige, blanc cassé, touches navy. Corporate haut de gamme français.</div>
       </div>
     </div>
   </section>
@@ -581,22 +606,35 @@ img { display: block; max-width: 100%; }
       <p class="section-subtitle">Nous adaptons notre approche à votre profil. Les mêmes exigences, le bon angle.</p>
       <div class="grid grid-4">
         <div class="segment-card" onclick="nav('dirigeant')">
-          <span class="icon">👔</span>
+          <!-- VISUEL V2a : icône/illustration Dirigeant -->
+          <div class="visual-placeholder light" style="min-height:100px;border-radius:var(--radius-sm);margin-bottom:12px;">
+            <div class="ph-icon">👔</div>
+            <div class="ph-spec">Illustration flat : silhouette chef d'entreprise, graphique descendant, tons navy/or</div>
+          </div>
           <h3>Dirigeant / TNS</h3>
           <p>Évitez la chute de 70% de vos revenus</p>
         </div>
         <div class="segment-card">
-          <span class="icon">👤</span>
+          <div class="visual-placeholder light" style="min-height:100px;border-radius:var(--radius-sm);margin-bottom:12px;">
+            <div class="ph-icon">👤</div>
+            <div class="ph-spec">Illustration flat : relevé de carrière avec loupe, anomalies surlignées</div>
+          </div>
           <h3>Salarié</h3>
           <p>Récupérez les droits oubliés par les caisses</p>
         </div>
         <div class="segment-card">
-          <span class="icon">✈️</span>
+          <div class="visual-placeholder light" style="min-height:100px;border-radius:var(--radius-sm);margin-bottom:12px;">
+            <div class="ph-icon">✈️</div>
+            <div class="ph-spec">Illustration flat : globe avec drapeaux, passeport, symbole trimestres</div>
+          </div>
           <h3>Expatrié</h3>
           <p>Vos années à l'étranger comptent</p>
         </div>
         <div class="segment-card" onclick="nav('entreprise')">
-          <span class="icon">🏢</span>
+          <div class="visual-placeholder light" style="min-height:100px;border-radius:var(--radius-sm);margin-bottom:12px;">
+            <div class="ph-icon">🏢</div>
+            <div class="ph-spec">Illustration flat : immeuble + groupe de personnes, badge RH</div>
+          </div>
           <h3>Entreprise</h3>
           <p>La retraite, votre prochain levier RH</p>
         </div>
@@ -983,6 +1021,12 @@ img { display: block; max-width: 100%; }
     <div class="badge badge-navy" style="display:block;text-align:center;width:fit-content;margin:0 auto 20px;">Offre B2B</div>
     <h2 class="section-title">La retraite, votre prochain <span style="color:var(--gold);">levier RH</span></h2>
     <p class="section-subtitle">Formation, sensibilisation, accompagnement collectif. Faites de la préparation retraite un avantage social pour vos collaborateurs.</p>
+    <!-- VISUEL V4 : Formation en entreprise -->
+    <div class="visual-placeholder light" style="max-width:800px;margin:32px auto 0;min-height:280px;">
+      <div class="ph-icon">📷</div>
+      <div class="ph-label">Visuel V4 — Formation B2B</div>
+      <div class="ph-spec">Photo corporate : salle de réunion vitrée, 5-6 personnes en formation. Formatrice debout au tableau blanc. Ambiance collaborative. Lumière naturelle. Style corporate français moderne.</div>
+    </div>
   </section>
 
   <div class="problem-bar" style="padding:36px 40px;">
@@ -1117,6 +1161,12 @@ img { display: block; max-width: 100%; }
   <section class="section">
     <h2 class="section-title">Votre retraite mérite mieux <span style="color:var(--gold);">qu'un formulaire</span></h2>
     <p class="section-subtitle">Nous sommes un cabinet indépendant, spécialisé exclusivement dans les droits de retraite obligatoire. Pas de placement financier, pas de produit à vendre. Juste notre expertise, au service de vos droits.</p>
+    <!-- VISUEL V5 : Photo d'équipe / ambiance cabinet -->
+    <div class="visual-placeholder light" style="max-width:900px;margin:40px auto 0;min-height:320px;">
+      <div class="ph-icon">📷</div>
+      <div class="ph-label">Visuel V5 — Ambiance cabinet</div>
+      <div class="ph-spec">Photo d'équipe : 3 femmes debout dans un bureau lumineux, posture professionnelle et souriante. Décor sobre (bois clair, plantes, lumière naturelle). Pas de photo stock américaine.</div>
+    </div>
   </section>
 
   <section class="section" style="background:var(--white);max-width:none;padding:80px 40px;">
@@ -1137,20 +1187,32 @@ img { display: block; max-width: 100%; }
     <p class="section-subtitle">Notre équipe est entièrement dédiée à la défense de vos droits de retraite.</p>
     <div class="grid grid-3" style="margin-top:32px;">
       <div class="card team-card">
-        <div class="team-avatar">👩‍💼</div>
-        <h4>[Prénom Nom]</h4>
+        <!-- VISUEL V3a : Photo équipe membre 1 -->
+        <div class="visual-placeholder light" style="width:120px;height:120px;border-radius:50%;margin:0 auto 16px;min-height:auto;">
+          <div class="ph-icon" style="font-size:24px;">📷</div>
+          <div class="ph-spec" style="font-size:8px;">Portrait pro, fond clair</div>
+        </div>
+        <h4>[A. — Prénom Nom]</h4>
         <div class="team-role">Directrice · Experte retraite</div>
         <div class="team-bio">Spécialiste des régimes obligatoires, elle pilote l'ensemble des dossiers complexes et la stratégie du cabinet.</div>
       </div>
       <div class="card team-card">
-        <div class="team-avatar">👩‍💻</div>
-        <h4>[Prénom Nom]</h4>
+        <!-- VISUEL V3b : Photo équipe membre 2 -->
+        <div class="visual-placeholder light" style="width:120px;height:120px;border-radius:50%;margin:0 auto 16px;min-height:auto;">
+          <div class="ph-icon" style="font-size:24px;">📷</div>
+          <div class="ph-spec" style="font-size:8px;">Portrait pro, fond clair</div>
+        </div>
+        <h4>[D. — Prénom Nom]</h4>
         <div class="team-role">Conseillère retraite</div>
         <div class="team-bio">Rigoureuse et à l'écoute, elle accompagne les clients dans la reconstitution de carrière et les démarches de régularisation.</div>
       </div>
       <div class="card team-card">
-        <div class="team-avatar">👩‍🏫</div>
-        <h4>[Prénom Nom]</h4>
+        <!-- VISUEL V3c : Photo équipe membre 3 -->
+        <div class="visual-placeholder light" style="width:120px;height:120px;border-radius:50%;margin:0 auto 16px;min-height:auto;">
+          <div class="ph-icon" style="font-size:24px;">📷</div>
+          <div class="ph-spec" style="font-size:8px;">Portrait pro, fond clair</div>
+        </div>
+        <h4>[L. — Prénom Nom]</h4>
         <div class="team-role">Conseillère retraite</div>
         <div class="team-bio">Spécialisée dans les carrières internationales et les multi-régimes, elle traite les dossiers les plus techniques.</div>
       </div>
