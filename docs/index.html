@@ -194,9 +194,20 @@ img { display: block; max-width: 100%; }
 .mobile-menu-btn { display: none; background: none; border: none; color: var(--white); font-size: 24px; cursor: pointer; }
 
 @media(max-width:900px) {
-  .nav-links { display: none; }
+  .nav-links {
+    display: none; position: absolute; top: 100%; left: 0; right: 0;
+    flex-direction: column; gap: 0; padding: 12px 0;
+    background: rgba(26,39,68,0.97); backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .nav-links.show { display: flex; }
+  .nav-links a { padding: 14px 40px; font-size: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .nav-links a:hover { background: rgba(255,255,255,0.05); }
+  .nav-links a.btn { margin: 12px 40px; text-align: center; }
   .nav-phone { display: none; }
   .mobile-menu-btn { display: block; }
+  .header-inner { position: relative; }
 }
 
 /* ============================================================
@@ -1447,6 +1458,7 @@ function nav(id) {
   document.querySelectorAll('.nav-links a:not(.btn)').forEach(a => a.classList.remove('active'));
   const link = document.querySelector(`.nav-links a[onclick*="'${id}'"]`);
   if (link && !link.classList.contains('btn')) link.classList.add('active');
+  document.querySelector('.nav-links').classList.remove('show');
   window.scrollTo({top:0, behavior:'smooth'});
   if (event) event.preventDefault();
 }
