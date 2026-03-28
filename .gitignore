@@ -1,0 +1,14 @@
+# Données personnelles - NE PAS COMMITER
+specimen/
+*.pdf
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
