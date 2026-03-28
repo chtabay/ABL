@@ -1,6 +1,16 @@
-# Données personnelles - NE PAS COMMITER
+# Données personnelles
 specimen/
-*.pdf
+
+# Documentation interne & analyses (non publics)
+00_*.md
+01_*.md
+02_*.md
+02bis_*.md
+03_*.md
+04_*.md
+
+# Wireframes de travail (le site live est dans /docs)
+wireframes/
 
 # OS
 .DS_Store
