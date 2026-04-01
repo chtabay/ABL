@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 420">
+  <!-- Geometric mark (extracted from original PNG) -->
+  <g fill="#1a2744" transform="translate(50,10)">
+    <polygon points="89.1,100.8 0,265.1 137.2,265.1"/>
+    <polygon points="150.4,0 109.3,74.4 149.6,265.1 189.9,77.5"/>
+    <polygon points="210.9,100.8 162.8,265.1 300,265.1"/>
+  </g>
+
+  <!-- Company name -->
+  <text x="200" y="330" text-anchor="middle"
+        font-family="'Plus Jakarta Sans','Helvetica Neue',Arial,sans-serif"
+        font-weight="800" font-size="48" fill="#1a2744"
+        letter-spacing="5">ABL</text>
+
+  <!-- French tricolor bar -->
+  <rect x="118" y="344" width="55" height="3.5" rx="1" fill="#002395"/>
+  <rect x="173" y="344" width="54" height="3.5" rx="0" fill="#C8CDD3"/>
+  <rect x="227" y="344" width="55" height="3.5" rx="1" fill="#ED2939"/>
+
+  <!-- Subtitle -->
+  <text x="200" y="380" text-anchor="middle"
+        font-family="'Plus Jakarta Sans','Helvetica Neue',Arial,sans-serif"
+        font-weight="500" font-size="16" fill="#1a2744"
+        letter-spacing="3.5">RETRAITE &amp; STRATÉGIES</text>
+</svg>

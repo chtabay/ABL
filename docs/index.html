@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ABL — Expert indépendant en retraite obligatoire</title>
+<title>ABL Retraite &amp; Stratégies — Expert indépendant en retraite obligatoire</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -178,8 +178,25 @@ img { display: block; max-width: 100%; }
   padding: 16px 40px; max-width: 1400px; margin: 0 auto;
   transition: all var(--transition);
 }
-.logo { font-family: var(--font-display); font-size: 28px; color: var(--white); letter-spacing: 0.02em; }
+.logo {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none;
+}
 .logo em { font-style: normal; color: var(--gold); }
+.logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+.logo-name {
+  font-family: var(--font-display); font-size: 24px; color: var(--white);
+  letter-spacing: 0.02em;
+}
+.logo-sub {
+  font-family: var(--font-body); font-size: 9px; font-weight: 500;
+  color: rgba(255,255,255,0.55); letter-spacing: 0.18em; text-transform: uppercase;
+}
+.logo-icon {
+  height: 32px; width: auto;
+  fill: var(--white);
+}
+.logo-icon polygon { fill: inherit; }
 .nav-links { display: flex; align-items: center; gap: 32px; }
 .nav-links a {
   color: rgba(255,255,255,0.7); font-size: 14px; font-weight: 500;
@@ -470,8 +487,13 @@ img { display: block; max-width: 100%; }
 .footer a:hover { color: var(--gold); }
 .footer ul { list-style: none; }
 .footer ul li { padding: 4px 0; }
-.footer-brand .logo-footer { font-family: var(--font-display); font-size: 24px; color: var(--navy); margin-bottom: 8px; }
+.footer-brand .logo-footer {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-display); font-size: 24px; color: var(--navy); margin-bottom: 8px;
+}
 .footer-brand .logo-footer em { font-style: normal; color: var(--gold); }
+.footer-brand .logo-footer .logo-icon-dark { height: 28px; width: auto; fill: var(--navy); }
+.footer-brand .logo-footer .logo-icon-dark polygon { fill: inherit; }
 .footer-bottom { text-align: center; padding: 20px 40px; font-size: 12px; color: var(--slate); border-top: 1px solid rgba(0,0,0,0.04); }
 @media(max-width:768px) { .footer { grid-template-columns: 1fr 1fr; } }
 @media(max-width:480px) { .footer { grid-template-columns: 1fr; } }
@@ -667,7 +689,7 @@ img { display: block; max-width: 100%; }
      ================================================================ -->
 <header class="header" id="mainHeader">
   <div class="header-inner">
-    <a href="#" onclick="nav('home')" class="logo"><em>A</em>BL</a>
+    <a href="#" onclick="nav('home')" class="logo"><svg class="logo-icon" viewBox="0 0 300 265"><polygon points="89.1,100.8 0,265.1 137.2,265.1"/><polygon points="150.4,0 109.3,74.4 149.6,265.1 189.9,77.5"/><polygon points="210.9,100.8 162.8,265.1 300,265.1"/></svg><span class="logo-text"><span class="logo-name"><em>A</em>BL</span><span class="logo-sub">Retraite &amp; Stratégies</span></span></a>
     <nav class="nav-links">
       <a href="#" onclick="nav('offres')">Nos offres</a>
       <a href="#" onclick="nav('simulateur')">Simulateur</a>
@@ -1519,7 +1541,7 @@ img { display: block; max-width: 100%; }
     <p class="legal-updated">Dernière mise à jour : 28 mars 2026</p>
 
     <h2>Éditeur du site</h2>
-    <p><strong>ABL — Conseil en retraite obligatoire</strong><br>
+    <p><strong>ABL Retraite &amp; Stratégies</strong><br>
     55 avenue Louis Breguet, Bâtiment Ariane, 3<sup>e</sup> étage<br>
     31400 Toulouse<br>
     Téléphone : 05 34 42 17 84<br>
@@ -1566,7 +1588,7 @@ img { display: block; max-width: 100%; }
 
     <h2>Article 1 — Objet</h2>
     <p>Les présentes Conditions Générales de Vente régissent les relations contractuelles entre :</p>
-    <p><strong>Le Prestataire :</strong> ABL — Conseil en retraite obligatoire<br>
+    <p><strong>Le Prestataire :</strong> ABL Retraite &amp; Stratégies<br>
     55 avenue Louis Breguet, 31400 Toulouse<br>
     SIRET : [à compléter]</p>
     <p>Et <strong>le Client</strong>, toute personne physique ou morale souscrivant à une prestation d'ABL.</p>
@@ -1676,7 +1698,7 @@ img { display: block; max-width: 100%; }
     <p class="legal-updated">Dernière mise à jour : 28 mars 2026</p>
 
     <h2>Responsable du traitement</h2>
-    <p><strong>ABL — Conseil en retraite obligatoire</strong><br>
+    <p><strong>ABL Retraite &amp; Stratégies</strong><br>
     55 avenue Louis Breguet, 31400 Toulouse<br>
     Email : <a href="mailto:contact@abl-retraite.fr">contact@abl-retraite.fr</a><br>
     Téléphone : 05 34 42 17 84</p>
@@ -1783,7 +1805,7 @@ img { display: block; max-width: 100%; }
 <footer>
   <div class="footer">
     <div class="footer-brand">
-      <div class="logo-footer"><em>A</em>BL</div>
+      <div class="logo-footer"><svg class="logo-icon-dark" viewBox="0 0 300 265"><polygon points="89.1,100.8 0,265.1 137.2,265.1"/><polygon points="150.4,0 109.3,74.4 149.6,265.1 189.9,77.5"/><polygon points="210.9,100.8 162.8,265.1 300,265.1"/></svg><span><em>A</em>BL</span></div>
       <p>Expert indépendant en droits<br>de retraite obligatoire</p>
       <p style="margin-top:12px;color:var(--gold);">★★★★★ 4.9/5 Google</p>
     </div>
@@ -1815,7 +1837,7 @@ img { display: block; max-width: 100%; }
     </div>
   </div>
   <div class="footer-bottom">
-    © 2026 ABL — Expert retraite obligatoire · <a href="#" onclick="nav('mentions');return false;">Mentions légales</a> · <a href="#" onclick="nav('cgv');return false;">CGV</a> · <a href="#" onclick="nav('confidentialite');return false;">Confidentialité</a>
+    © 2026 ABL Retraite &amp; Stratégies · <a href="#" onclick="nav('mentions');return false;">Mentions légales</a> · <a href="#" onclick="nav('cgv');return false;">CGV</a> · <a href="#" onclick="nav('confidentialite');return false;">Confidentialité</a>
   </div>
 </footer>
 
